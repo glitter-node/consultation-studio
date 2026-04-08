@@ -1,0 +1,63 @@
+{
+  "identifier": "consultation-studio",
+  "vendor": "consultation",
+  "name": {
+    "en": "Consultation Studio"
+  },
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": {
+    "en": "Consultation reservation template for public booking and admin operations"
+  },
+  "type": "user",
+  "locales": [
+    "ko",
+    "en"
+  ],
+  "author": {
+    "name": "OpenAI Codex",
+    "email": "noreply@example.com",
+    "url": "https://openai.com"
+  },
+  "release_date": "2026-04-08",
+  "g7_version": ">=7.0.0-beta.1",
+  "dependencies": {
+    "modules": {},
+    "plugins": {}
+  },
+  "assets": {
+    "css": [
+      "assets/css/theme.css",
+      "assets/css/public.css",
+      "assets/css/admin.css"
+    ],
+    "js": [
+      "assets/js/index.js"
+    ],
+    "fonts": [],
+    "images": []
+  },
+  "features": {
+    "responsive": true,
+    "dark_mode": false,
+    "multi_language": false,
+    "multi_currency": false
+  },
+  "brand_defaults": {
+    "logoText": "Consultation Studio",
+    "brandColor": "#0f766e",
+    "contactText": "Contact us at support@example.com",
+    "branchNotice": "Branch availability may vary by operating calendar.",
+    "completionNotice": "A confirmation email will be sent after verification is completed."
+  },
+  "error_config": {
+    "layouts": {
+      "401": "401",
+      "403": "403",
+      "404": "404",
+      "500": "500",
+      "503": "503",
+      "maintenance": "maintenance"
+    }
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "version": "1.0.0",
+  "layout_name": "_consultation_public_base",
+  "meta": {
+    "title": "Consultation Studio",
+    "description": "Consultation reservation public base layout",
+    "is_base": true
+  },
+  "init_actions": [
+    {
+      "handler": "setState",
+      "params": {
+        "target": "global",
+        "consultationStudioBrand": {
+          "logoText": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.logoText ? _global.consultationStudioBrand.logoText : 'Consultation Studio'}}",
+          "brandColor": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.brandColor ? _global.consultationStudioBrand.brandColor : '#0f766e'}}",
+          "contactText": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.contactText ? _global.consultationStudioBrand.contactText : 'Contact us at support@example.com'}}",
+          "branchNotice": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.branchNotice ? _global.consultationStudioBrand.branchNotice : 'Branch availability may vary by operating calendar.'}}",
+          "completionNotice": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.completionNotice ? _global.consultationStudioBrand.completionNotice : 'A confirmation email will be sent after verification is completed.'}}"
+        }
+      }
+    }
+  ],
+  "components": [
+    {
+      "id": "consultation_public_root",
+      "type": "basic",
+      "name": "Div",
+      "props": {
+        "className": "cs-theme cs-public min-h-screen"
+      },
+      "children": [
+        {
+          "id": "consultation_public_shell",
+          "type": "basic",
+          "name": "Div",
+          "props": {
+            "className": "cs-public-shell"
+          },
+          "children": [
+            {
+              "id": "consultation_public_header",
+              "type": "basic",
+              "name": "Div",
+              "props": {
+                "className": "cs-public-header"
+              },
+              "children": [
+                {
+                  "type": "basic",
+                  "name": "Div",
+                  "props": {
+                    "className": "cs-brand-lockup"
+                  },
+                  "children": [
+                    {
+                      "type": "basic",
+                      "name": "Span",
+                      "props": {
+                        "className": "cs-brand-badge"
+                      },
+                      "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.logoText ? _global.consultationStudioBrand.logoText : 'Consultation Studio'}}"
+                    },
+                    {
+                      "type": "basic",
+                      "name": "Span",
+                      "props": {
+                        "className": "cs-contact-text"
+                      },
+                      "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.contactText ? _global.consultationStudioBrand.contactText : ''}}"
+                    }
+                  ]
+                },
+                {
+                  "type": "basic",
+                  "name": "Div",
+                  "props": {
+                    "className": "cs-public-nav"
+                  },
+                  "children": [
+                    {
+                      "type": "basic",
+                      "name": "Button",
+                      "props": {
+                        "type": "button",
+                        "className": "cs-nav-button"
+                      },
+                      "actions": [
+                        {
+                          "type": "click",
+                          "handler": "navigate",
+                          "params": {
+                            "path": "/consultation"
+                          }
+                        }
+                      ],
+                      "children": [
+                        {
+                          "type": "basic",
+                          "name": "Span",
+                          "text": "Overview"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "basic",
+                      "name": "Button",
+                      "props": {
+                        "type": "button",
+                        "className": "cs-nav-button cs-nav-button-primary"
+                      },
+                      "actions": [
+                        {
+                          "type": "click",
+                          "handler": "navigate",
+                          "params": {
+                            "path": "/consultation/reserve"
+                          }
+                        }
+                      ],
+                      "children": [
+                        {
+                          "type": "basic",
+                          "name": "Span",
+                          "text": "Reserve"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "consultation_public_content",
+              "type": "basic",
+              "name": "Div",
+              "props": {
+                "className": "cs-page-frame"
+              },
+              "children": [
+                {
+                  "type": "basic",
+                  "name": "Div",
+                  "slot": "content",
+                  "props": {
+                    "className": "cs-page-grid"
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "consultation_public_footer",
+              "type": "basic",
+              "name": "Div",
+              "props": {
+                "className": "cs-public-footer"
+              },
+              "children": [
+                {
+                  "type": "basic",
+                  "name": "Span",
+                  "props": {
+                    "className": "cs-footer-note"
+                  },
+                  "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.branchNotice ? _global.consultationStudioBrand.branchNotice : ''}}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

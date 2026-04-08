@@ -1,0 +1,56 @@
+:root {
+  --cs-brand-color: #0f766e;
+  --cs-brand-color-soft: #d9f3ef;
+  --cs-ink: #102127;
+  --cs-muted: #5a6b73;
+  --cs-border: #d5dde1;
+  --cs-surface: #ffffff;
+  --cs-surface-alt: #f4f7f8;
+}
+
+.cs-theme {
+  background: linear-gradient(180deg, #f6fbfa 0%, #edf4f6 100%);
+  color: var(--cs-ink);
+  font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+}
+
+.cs-panel,
+.cs-admin-panel {
+  background: var(--cs-surface);
+  border: 1px solid var(--cs-border);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(16, 33, 39, 0.06);
+}
+
+.cs-primary-button,
+.cs-secondary-button,
+.cs-nav-button,
+.cs-admin-link,
+.cs-chip,
+.cs-slot-button,
+.cs-option-card {
+  transition: all 0.2s ease;
+}
+
+.cs-primary-button {
+  background: var(--cs-brand-color);
+  color: #ffffff;
+  border: 0;
+}
+
+.cs-secondary-button {
+  background: var(--cs-surface-alt);
+  color: var(--cs-ink);
+  border: 1px solid var(--cs-border);
+}
+
+.cs-status-pill {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--cs-brand-color-soft);
+  color: var(--cs-brand-color);
+  font-weight: 700;
+}

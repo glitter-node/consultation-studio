@@ -1,0 +1,87 @@
+.cs-admin-shell {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+.cs-admin-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px 20px;
+  background: #132a30;
+}
+
+.cs-admin-brand {
+  margin: 0 0 8px;
+  color: #ffffff;
+}
+
+.cs-admin-link {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  text-align: left;
+}
+
+.cs-admin-main {
+  display: grid;
+  gap: 20px;
+  padding: 28px;
+}
+
+.cs-admin-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cs-admin-header-text {
+  color: var(--cs-muted);
+}
+
+.cs-admin-content {
+  display: grid;
+  gap: 20px;
+}
+
+.cs-admin-panel {
+  padding: 24px;
+}
+
+.cs-admin-filter-bar {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+
+.cs-admin-table {
+  display: grid;
+  gap: 10px;
+}
+
+.cs-admin-row {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1fr 0.8fr 0.8fr 0.7fr;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--cs-surface-alt);
+}
+
+.cs-admin-cell {
+  min-width: 0;
+  word-break: break-word;
+}
+
+@media (max-width: 960px) {
+  .cs-admin-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-admin-filter-bar,
+  .cs-admin-row {
+    grid-template-columns: 1fr;
+  }
+}

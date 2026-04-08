@@ -1,0 +1,181 @@
+.cs-public-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+.cs-public-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.cs-brand-lockup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cs-brand-badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--cs-brand-color-soft);
+  color: var(--cs-brand-color);
+  font-weight: 700;
+}
+
+.cs-contact-text,
+.cs-block-note,
+.cs-page-copy,
+.cs-option-copy,
+.cs-footer-note {
+  color: var(--cs-muted);
+  line-height: 1.6;
+}
+
+.cs-public-nav,
+.cs-inline-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cs-nav-button,
+.cs-primary-button,
+.cs-secondary-button,
+.cs-chip,
+.cs-slot-button {
+  border-radius: 14px;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.cs-nav-button {
+  background: transparent;
+  border: 1px solid var(--cs-border);
+  color: var(--cs-ink);
+}
+
+.cs-nav-button-primary {
+  background: var(--cs-brand-color);
+  border-color: var(--cs-brand-color);
+  color: #ffffff;
+}
+
+.cs-page-frame,
+.cs-page-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.cs-panel {
+  padding: 24px;
+}
+
+.cs-page-title,
+.cs-block-title,
+.cs-option-title {
+  margin: 0 0 12px;
+}
+
+.cs-step-label {
+  display: inline-flex;
+  margin-bottom: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cs-brand-color);
+}
+
+.cs-card-list,
+.cs-chip-list,
+.cs-slot-grid,
+.cs-form-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.cs-chip-list {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.cs-card-list {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.cs-slot-grid {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.cs-option-card,
+.cs-chip,
+.cs-slot-button {
+  border: 1px solid var(--cs-border);
+  background: var(--cs-surface-alt);
+  color: var(--cs-ink);
+  text-align: left;
+}
+
+.cs-option-card-active,
+.cs-chip-active,
+.cs-slot-button-selected,
+.cs-option-card:hover,
+.cs-chip:hover,
+.cs-slot-button-available:hover {
+  border-color: var(--cs-brand-color);
+  background: var(--cs-brand-color-soft);
+}
+
+.cs-slot-button-booked {
+  background: #fef0c7;
+  border-color: #f2c94c;
+  color: #b54708;
+}
+
+.cs-slot-button-closed,
+.cs-slot-button-expired {
+  background: #eef2f4;
+  border-color: #dbe2e5;
+  color: #8c9aa1;
+}
+
+.cs-input,
+.cs-textarea {
+  width: 100%;
+  border: 1px solid var(--cs-border);
+  background: #ffffff;
+  color: var(--cs-ink);
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-sizing: border-box;
+}
+
+.cs-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.cs-summary-panel {
+  background: linear-gradient(135deg, #ffffff 0%, #f7fcfb 100%);
+}
+
+.cs-summary-line {
+  margin: 0 0 10px;
+}
+
+.cs-public-footer {
+  margin-top: 24px;
+  padding: 8px 4px;
+}
+
+@media (max-width: 768px) {
+  .cs-public-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

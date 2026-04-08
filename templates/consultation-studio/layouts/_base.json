@@ -1,0 +1,108 @@
+{
+  "version": "1.0.0",
+  "layout_name": "_base",
+  "meta": {
+    "title": "Consultation Studio",
+    "description": "Consultation Studio base layout",
+    "is_base": true
+  },
+  "components": [
+    {
+      "id": "consultation_studio_root",
+      "type": "basic",
+      "name": "Div",
+      "props": {
+        "className": "cs-theme cs-public min-h-screen"
+      },
+      "children": [
+        {
+          "id": "consultation_studio_shell",
+          "type": "basic",
+          "name": "Div",
+          "props": {
+            "className": "cs-public-shell"
+          },
+          "children": [
+            {
+              "id": "consultation_studio_header",
+              "type": "basic",
+              "name": "Div",
+              "props": {
+                "className": "cs-public-header"
+              },
+              "children": [
+                {
+                  "id": "consultation_studio_brand",
+                  "type": "basic",
+                  "name": "Div",
+                  "props": {
+                    "className": "cs-brand-lockup"
+                  },
+                  "children": [
+                    {
+                      "id": "consultation_studio_brand_text",
+                      "type": "basic",
+                      "name": "Span",
+                      "props": {
+                        "className": "cs-brand-badge"
+                      },
+                      "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.logoText ? _global.consultationStudioBrand.logoText : 'Consultation Studio'}}"
+                    },
+                    {
+                      "id": "consultation_studio_contact_text",
+                      "type": "basic",
+                      "name": "Span",
+                      "props": {
+                        "className": "cs-contact-text"
+                      },
+                      "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.contactText ? _global.consultationStudioBrand.contactText : ''}}"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "consultation_studio_content",
+              "type": "basic",
+              "name": "Div",
+              "props": {
+                "className": "cs-page-frame"
+              },
+              "children": [
+                {
+                  "id": "consultation_studio_slot",
+                  "type": "basic",
+                  "name": "Div",
+                  "slot": "content",
+                  "props": {
+                    "className": "cs-page-grid"
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "consultation_studio_footer",
+              "type": "basic",
+              "name": "Div",
+              "props": {
+                "className": "cs-public-footer"
+              },
+              "children": [
+                {
+                  "id": "consultation_studio_footer_text",
+                  "type": "basic",
+                  "name": "Span",
+                  "props": {
+                    "className": "cs-footer-note"
+                  },
+                  "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.branchNotice ? _global.consultationStudioBrand.branchNotice : ''}}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

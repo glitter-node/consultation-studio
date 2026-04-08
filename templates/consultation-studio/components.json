@@ -1,0 +1,75 @@
+{
+  "templateId": "consultation-studio",
+  "version": "0.1.0",
+  "components": {
+    "basic": [
+      {
+        "name": "Button",
+        "type": "basic"
+      },
+      {
+        "name": "Div",
+        "type": "basic"
+      },
+      {
+        "name": "Form",
+        "type": "basic"
+      },
+      {
+        "name": "H1",
+        "type": "basic"
+      },
+      {
+        "name": "H2",
+        "type": "basic"
+      },
+      {
+        "name": "H3",
+        "type": "basic"
+      },
+      {
+        "name": "Input",
+        "type": "basic"
+      },
+      {
+        "name": "P",
+        "type": "basic"
+      },
+      {
+        "name": "Span",
+        "type": "basic"
+      },
+      {
+        "name": "Textarea",
+        "type": "basic"
+      }
+    ],
+    "composite": [
+      {
+        "name": "consultation_type_selector",
+        "type": "composite"
+      },
+      {
+        "name": "date_picker",
+        "type": "composite"
+      },
+      {
+        "name": "time_slot_grid",
+        "type": "composite"
+      },
+      {
+        "name": "reservation_summary",
+        "type": "composite"
+      },
+      {
+        "name": "verification_status_box",
+        "type": "composite"
+      },
+      {
+        "name": "action_bar",
+        "type": "composite"
+      }
+    ],
+    "layout": []
+  }
+}

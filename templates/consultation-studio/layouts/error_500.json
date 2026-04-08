@@ -1,0 +1,127 @@
+{
+  "version": "1.0.0",
+  "layout_name": "error_500",
+  "permissions": [],
+  "meta": {
+    "title": "Temporary Service Error"
+  },
+  "slots": {
+    "content": [
+      {
+        "id": "error_shell",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-theme cs-public min-h-screen"
+        },
+        "children": [
+          {
+            "id": "error_frame",
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "cs-public-shell"
+            },
+            "children": [
+              {
+                "id": "error_header",
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                  "className": "cs-panel"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "cs-step-label"
+                    },
+                    "text": "Error 500"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "H1",
+                    "props": {
+                      "className": "cs-page-title"
+                    },
+                    "text": "Temporary Service Error"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "P",
+                    "props": {
+                      "className": "cs-page-copy"
+                    },
+                    "text": "The page is temporarily unavailable. Please try again shortly."
+                  }
+                ]
+              },
+              {
+                "id": "error_notice",
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                  "className": "cs-panel cs-summary-panel"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "P",
+                    "props": {
+                      "className": "cs-summary-line"
+                    },
+                    "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.completionNotice ? _global.consultationStudioBrand.completionNotice : 'A confirmation email will be sent after verification is completed.'}}"
+                  }
+                ]
+              },
+              {
+                "id": "action_bar",
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                  "className": "cs-panel"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Div",
+                    "props": {
+                      "className": "cs-inline-actions"
+                    },
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Button",
+                        "props": {
+                          "type": "button",
+                          "className": "cs-primary-button"
+                        },
+                        "actions": [
+                          {
+                            "type": "click",
+                            "handler": "navigate",
+                            "params": {
+                              "path": "/consultation/lookup"
+                            }
+                          }
+                        ],
+                        "children": [
+                          {
+                            "type": "basic",
+                            "name": "Span",
+                            "text": "Go To Lookup"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "layout_name": "404",
+  "extends": "_consultation_public_base",
+  "slots": {
+    "content": [
+      {
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "H1",
+            "props": {
+              "className": "cs-page-title"
+            },
+            "text": "404"
+          }
+        ]
+      }
+    ]
+  }
+}

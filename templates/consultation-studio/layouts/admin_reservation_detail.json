@@ -1,0 +1,351 @@
+{
+  "version": "1.0.0",
+  "layout_name": "admin_reservation_detail",
+  "permissions": [],
+  "meta": {
+    "title": "Admin Reservation Detail"
+  },
+  "data_sources": [
+    {
+      "id": "admin",
+      "type": "api",
+      "endpoint": "/api/admin/consultation/reservations/{{query.id}}",
+      "method": "GET",
+      "auto_fetch": true,
+      "loading_strategy": "progressive",
+      "fallback": {
+        "reservation_detail": {
+          "id": "",
+          "reservationNumber": "",
+          "applicantName": "",
+          "applicantPhone": "",
+          "applicantEmail": "",
+          "consultationType": "",
+          "branchName": "",
+          "reservationDate": "",
+          "slotLabel": "",
+          "state": "",
+          "verificationState": "",
+          "createdAt": "",
+          "updatedAt": "",
+          "memo": ""
+        }
+      }
+    }
+  ],
+  "named_actions": {
+    "change_status": {
+      "handler": "apiCall",
+      "target": "/api/admin/consultation/reservations/{{query.id}}/status",
+      "params": {
+        "method": "POST",
+        "body": {
+          "state": "{{$event.target.state.value}}"
+        }
+      }
+    },
+    "save_memo": {
+      "handler": "apiCall",
+      "target": "/api/admin/consultation/reservations/{{query.id}}/memo",
+      "params": {
+        "method": "POST",
+        "body": {
+          "memo": "{{$event.target.memo.value}}"
+        }
+      }
+    },
+    "return_to_list": {
+      "handler": "navigate",
+      "params": {
+        "path": "/admin/consultation/reservations"
+      }
+    }
+  },
+  "slots": {
+    "content": [
+      {
+        "id": "page_header",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "H1",
+            "props": {
+              "className": "cs-page-title"
+            },
+            "text": "Reservation Detail"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "Review reservation information and update operator-managed fields."
+          }
+        ]
+      },
+      {
+        "id": "reservation_detail_card",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel cs-summary-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "H2",
+            "props": {
+              "className": "cs-block-title"
+            },
+            "text": "Reservation Detail"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Reservation Number: {{admin.reservation_detail && admin.reservation_detail.reservationNumber ? admin.reservation_detail.reservationNumber : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Applicant Name: {{admin.reservation_detail && admin.reservation_detail.applicantName ? admin.reservation_detail.applicantName : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Applicant Phone: {{admin.reservation_detail && admin.reservation_detail.applicantPhone ? admin.reservation_detail.applicantPhone : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Applicant Email: {{admin.reservation_detail && admin.reservation_detail.applicantEmail ? admin.reservation_detail.applicantEmail : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Consultation Type: {{admin.reservation_detail && admin.reservation_detail.consultationType ? admin.reservation_detail.consultationType : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Branch: {{admin.reservation_detail && admin.reservation_detail.branchName ? admin.reservation_detail.branchName : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Reservation Date: {{admin.reservation_detail && admin.reservation_detail.reservationDate ? admin.reservation_detail.reservationDate : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Time: {{admin.reservation_detail && admin.reservation_detail.slotLabel ? admin.reservation_detail.slotLabel : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "State: {{admin.reservation_detail && admin.reservation_detail.state ? admin.reservation_detail.state : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Created At: {{admin.reservation_detail && admin.reservation_detail.createdAt ? admin.reservation_detail.createdAt : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Updated At: {{admin.reservation_detail && admin.reservation_detail.updatedAt ? admin.reservation_detail.updatedAt : ''}}"
+          }
+        ]
+      },
+      {
+        "id": "verification_status_box",
+        "type": "basic",
+        "name": "Form",
+        "props": {
+          "id": "reservation_status_form",
+          "className": "cs-panel"
+        },
+        "actions": [
+          {
+            "type": "submit",
+            "actionRef": "change_status"
+          }
+        ],
+        "children": [
+          {
+            "type": "basic",
+            "name": "H2",
+            "props": {
+              "className": "cs-block-title"
+            },
+            "text": "Verification And Status"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Verification State: {{admin.reservation_detail && admin.reservation_detail.verificationState ? admin.reservation_detail.verificationState : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "Input",
+            "props": {
+              "name": "state",
+              "type": "text",
+              "value": "{{admin.reservation_detail && admin.reservation_detail.state ? admin.reservation_detail.state : ''}}",
+              "placeholder": "State",
+              "className": "cs-input"
+            }
+          }
+        ]
+      },
+      {
+        "id": "reservation_memo_panel",
+        "type": "basic",
+        "name": "Form",
+        "props": {
+          "id": "reservation_memo_form",
+          "className": "cs-panel"
+        },
+        "actions": [
+          {
+            "type": "submit",
+            "actionRef": "save_memo"
+          }
+        ],
+        "children": [
+          {
+            "type": "basic",
+            "name": "H2",
+            "props": {
+              "className": "cs-block-title"
+            },
+            "text": "Reservation Memo"
+          },
+          {
+            "type": "basic",
+            "name": "Textarea",
+            "props": {
+              "name": "memo",
+              "value": "{{admin.reservation_detail && admin.reservation_detail.memo ? admin.reservation_detail.memo : ''}}",
+              "placeholder": "Memo",
+              "className": "cs-textarea"
+            }
+          }
+        ]
+      },
+      {
+        "id": "action_bar",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "cs-inline-actions"
+            },
+            "children": [
+              {
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "type": "submit",
+                  "form": "reservation_status_form",
+                  "className": "cs-primary-button"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "text": "Change Status"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "type": "submit",
+                  "form": "reservation_memo_form",
+                  "className": "cs-secondary-button"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "text": "Save Memo"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "type": "button",
+                  "className": "cs-secondary-button"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "actionRef": "return_to_list"
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "text": "Return To List"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,411 @@
+{
+  "version": "1.0.0",
+  "layout_name": "admin_reservation_list",
+  "permissions": [],
+  "meta": {
+    "title": "Admin Reservation List"
+  },
+  "data_sources": [
+    {
+      "id": "admin",
+      "type": "api",
+      "endpoint": "/api/admin/consultation/reservations",
+      "method": "GET",
+      "auto_fetch": true,
+      "loading_strategy": "progressive",
+      "params": {
+        "date_from": "{{query.date_from}}",
+        "date_to": "{{query.date_to}}",
+        "branch": "{{query.branch}}",
+        "consultation_type": "{{query.consultation_type}}",
+        "state": "{{query.state}}",
+        "applicant_name": "{{query.applicant_name}}",
+        "phone": "{{query.phone}}"
+      },
+      "fallback": {
+        "reservations": []
+      }
+    }
+  ],
+  "named_actions": {
+    "submit_filters": {
+      "handler": "navigate",
+      "params": {
+        "path": "/admin/consultation/reservations",
+        "replace": true,
+        "query": {
+          "date_from": "{{$event.target.date_from.value}}",
+          "date_to": "{{$event.target.date_to.value}}",
+          "branch": "{{$event.target.branch.value}}",
+          "consultation_type": "{{$event.target.consultation_type.value}}",
+          "state": "{{$event.target.state.value}}",
+          "applicant_name": "{{$event.target.applicant_name.value}}",
+          "phone": "{{$event.target.phone.value}}"
+        }
+      }
+    },
+    "refresh_list": {
+      "handler": "navigate",
+      "params": {
+        "path": "/admin/consultation/reservations",
+        "replace": true,
+        "query": {
+          "date_from": "{{query.date_from ?? ''}}",
+          "date_to": "{{query.date_to ?? ''}}",
+          "branch": "{{query.branch ?? ''}}",
+          "consultation_type": "{{query.consultation_type ?? ''}}",
+          "state": "{{query.state ?? ''}}",
+          "applicant_name": "{{query.applicant_name ?? ''}}",
+          "phone": "{{query.phone ?? ''}}"
+        }
+      }
+    }
+  },
+  "slots": {
+    "content": [
+      {
+        "id": "page_header",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "H1",
+            "props": {
+              "className": "cs-page-title"
+            },
+            "text": "Consultation Reservations"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "Review reservation records and open a reservation detail page."
+          }
+        ]
+      },
+      {
+        "id": "reservation_filter_bar",
+        "type": "basic",
+        "name": "Form",
+        "props": {
+          "id": "reservation_filter_bar",
+          "className": "cs-panel cs-admin-filter-bar"
+        },
+        "actions": [
+          {
+            "type": "submit",
+            "actionRef": "submit_filters"
+          }
+        ],
+        "children": [
+          {
+            "type": "basic",
+            "name": "Input",
+            "props": {
+              "name": "date_from",
+              "type": "date",
+              "value": "{{query.date_from ?? ''}}",
+              "className": "cs-input"
+            }
+          },
+          {
+            "type": "basic",
+            "name": "Input",
+            "props": {
+              "name": "date_to",
+              "type": "date",
+              "value": "{{query.date_to ?? ''}}",
+              "className": "cs-input"
+            }
+          },
+          {
+            "type": "basic",
+            "name": "Input",
+            "props": {
+              "name": "branch",
+              "type": "text",
+              "value": "{{query.branch ?? ''}}",
+              "placeholder": "Branch",
+              "className": "cs-input"
+            }
+          },
+          {
+            "type": "basic",
+            "name": "Input",
+            "props": {
+              "name": "consultation_type",
+              "type": "text",
+              "value": "{{query.consultation_type ?? ''}}",
+              "placeholder": "Consultation Type",
+              "className": "cs-input"
+            }
+          },
+          {
+            "type": "basic",
+            "name": "Input",
+            "props": {
+              "name": "state",
+              "type": "text",
+              "value": "{{query.state ?? ''}}",
+              "placeholder": "State",
+              "className": "cs-input"
+            }
+          },
+          {
+            "type": "basic",
+            "name": "Input",
+            "props": {
+              "name": "applicant_name",
+              "type": "text",
+              "value": "{{query.applicant_name ?? ''}}",
+              "placeholder": "Applicant Name",
+              "className": "cs-input"
+            }
+          },
+          {
+            "type": "basic",
+            "name": "Input",
+            "props": {
+              "name": "phone",
+              "type": "text",
+              "value": "{{query.phone ?? ''}}",
+              "placeholder": "Phone",
+              "className": "cs-input"
+            }
+          }
+        ]
+      },
+      {
+        "id": "reservation_table",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel cs-admin-table"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "cs-admin-row"
+            },
+            "children": [
+              {
+                "type": "basic",
+                "name": "Span",
+                "props": {
+                  "className": "cs-admin-cell"
+                },
+                "text": "Reservation Number"
+              },
+              {
+                "type": "basic",
+                "name": "Span",
+                "props": {
+                  "className": "cs-admin-cell"
+                },
+                "text": "Applicant Name"
+              },
+              {
+                "type": "basic",
+                "name": "Span",
+                "props": {
+                  "className": "cs-admin-cell"
+                },
+                "text": "Consultation Type"
+              },
+              {
+                "type": "basic",
+                "name": "Span",
+                "props": {
+                  "className": "cs-admin-cell"
+                },
+                "text": "Branch"
+              },
+              {
+                "type": "basic",
+                "name": "Span",
+                "props": {
+                  "className": "cs-admin-cell"
+                },
+                "text": "Reservation Date"
+              },
+              {
+                "type": "basic",
+                "name": "Span",
+                "props": {
+                  "className": "cs-admin-cell"
+                },
+                "text": "Time"
+              },
+              {
+                "type": "basic",
+                "name": "Span",
+                "props": {
+                  "className": "cs-admin-cell"
+                },
+                "text": "State"
+              },
+              {
+                "type": "basic",
+                "name": "Span",
+                "props": {
+                  "className": "cs-admin-cell"
+                },
+                "text": "Created At"
+              }
+            ]
+          },
+          {
+            "type": "basic",
+            "name": "Div",
+            "iteration": {
+              "source": "{{admin.reservations ?? []}}",
+              "item_var": "item"
+            },
+            "props": {
+              "className": "cs-admin-row"
+            },
+            "actions": [
+              {
+                "type": "click",
+                "handler": "navigate",
+                "params": {
+                  "path": "/admin/consultation/reservations/{{item.id}}"
+                }
+              }
+            ],
+            "children": [
+              {
+                "type": "basic",
+                "name": "Span",
+                "props": {
+                  "className": "cs-admin-cell"
+                },
+                "text": "{{item.reservationNumber ?? ''}}"
+              },
+              {
+                "type": "basic",
+                "name": "Span",
+                "props": {
+                  "className": "cs-admin-cell"
+                },
+                "text": "{{item.applicantName ?? ''}}"
+              },
+              {
+                "type": "basic",
+                "name": "Span",
+                "props": {
+                  "className": "cs-admin-cell"
+                },
+                "text": "{{item.consultationType ?? ''}}"
+              },
+              {
+                "type": "basic",
+                "name": "Span",
+                "props": {
+                  "className": "cs-admin-cell"
+                },
+                "text": "{{item.branchName ?? ''}}"
+              },
+              {
+                "type": "basic",
+                "name": "Span",
+                "props": {
+                  "className": "cs-admin-cell"
+                },
+                "text": "{{item.reservationDate ?? ''}}"
+              },
+              {
+                "type": "basic",
+                "name": "Span",
+                "props": {
+                  "className": "cs-admin-cell"
+                },
+                "text": "{{item.slotLabel ?? ''}}"
+              },
+              {
+                "type": "basic",
+                "name": "Span",
+                "props": {
+                  "className": "cs-admin-cell"
+                },
+                "text": "{{item.state ?? ''}}"
+              },
+              {
+                "type": "basic",
+                "name": "Span",
+                "props": {
+                  "className": "cs-admin-cell"
+                },
+                "text": "{{item.createdAt ?? ''}}"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "action_bar",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "cs-inline-actions"
+            },
+            "children": [
+              {
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "type": "submit",
+                  "form": "reservation_filter_bar",
+                  "className": "cs-primary-button"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "text": "Apply Filters"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "type": "button",
+                  "className": "cs-secondary-button"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "actionRef": "refresh_list"
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "text": "Refresh"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

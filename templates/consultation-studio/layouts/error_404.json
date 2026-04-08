@@ -1,0 +1,127 @@
+{
+  "version": "1.0.0",
+  "layout_name": "error_404",
+  "permissions": [],
+  "meta": {
+    "title": "Page Not Found"
+  },
+  "slots": {
+    "content": [
+      {
+        "id": "error_shell",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-theme cs-public min-h-screen"
+        },
+        "children": [
+          {
+            "id": "error_frame",
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "cs-public-shell"
+            },
+            "children": [
+              {
+                "id": "error_header",
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                  "className": "cs-panel"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "cs-step-label"
+                    },
+                    "text": "Error 404"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "H1",
+                    "props": {
+                      "className": "cs-page-title"
+                    },
+                    "text": "Page Not Found"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "P",
+                    "props": {
+                      "className": "cs-page-copy"
+                    },
+                    "text": "The requested page could not be found."
+                  }
+                ]
+              },
+              {
+                "id": "error_notice",
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                  "className": "cs-panel cs-summary-panel"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "P",
+                    "props": {
+                      "className": "cs-summary-line"
+                    },
+                    "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.contactText ? _global.consultationStudioBrand.contactText : 'Contact us at support@example.com'}}"
+                  }
+                ]
+              },
+              {
+                "id": "action_bar",
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                  "className": "cs-panel"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Div",
+                    "props": {
+                      "className": "cs-inline-actions"
+                    },
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Button",
+                        "props": {
+                          "type": "button",
+                          "className": "cs-primary-button"
+                        },
+                        "actions": [
+                          {
+                            "type": "click",
+                            "handler": "navigate",
+                            "params": {
+                              "path": "/consultation/reserve"
+                            }
+                          }
+                        ],
+                        "children": [
+                          {
+                            "type": "basic",
+                            "name": "Span",
+                            "text": "Go To Reserve"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

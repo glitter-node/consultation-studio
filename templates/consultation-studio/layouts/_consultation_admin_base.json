@@ -1,0 +1,145 @@
+{
+  "version": "1.0.0",
+  "layout_name": "_consultation_admin_base",
+  "meta": {
+    "title": "Consultation Studio Admin",
+    "description": "Consultation reservation admin base layout",
+    "is_base": true
+  },
+  "init_actions": [
+    {
+      "handler": "setState",
+      "params": {
+        "target": "global",
+        "consultationStudioBrand": {
+          "logoText": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.logoText ? _global.consultationStudioBrand.logoText : 'Consultation Studio'}}",
+          "brandColor": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.brandColor ? _global.consultationStudioBrand.brandColor : '#0f766e'}}",
+          "contactText": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.contactText ? _global.consultationStudioBrand.contactText : 'Contact us at support@example.com'}}",
+          "branchNotice": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.branchNotice ? _global.consultationStudioBrand.branchNotice : 'Branch availability may vary by operating calendar.'}}",
+          "completionNotice": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.completionNotice ? _global.consultationStudioBrand.completionNotice : 'A confirmation email will be sent after verification is completed.'}}"
+        }
+      }
+    }
+  ],
+  "components": [
+    {
+      "id": "consultation_admin_root",
+      "type": "basic",
+      "name": "Div",
+      "props": {
+        "className": "cs-theme cs-admin min-h-screen"
+      },
+      "children": [
+        {
+          "type": "basic",
+          "name": "Div",
+          "props": {
+            "className": "cs-admin-shell"
+          },
+          "children": [
+            {
+              "type": "basic",
+              "name": "Div",
+              "props": {
+                "className": "cs-admin-sidebar"
+              },
+              "children": [
+                {
+                  "type": "basic",
+                  "name": "H1",
+                  "props": {
+                    "className": "cs-admin-brand"
+                  },
+                  "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.logoText ? _global.consultationStudioBrand.logoText : 'Consultation Studio'}}"
+                },
+                {
+                  "type": "basic",
+                  "name": "Button",
+                  "props": {
+                    "type": "button",
+                    "className": "cs-admin-link"
+                  },
+                  "actions": [
+                    {
+                      "type": "click",
+                      "handler": "navigate",
+                      "params": {
+                        "path": "/admin/consultation/reservations"
+                      }
+                    }
+                  ],
+                  "children": [
+                    {
+                      "type": "basic",
+                      "name": "Span",
+                      "text": "Reservations"
+                    }
+                  ]
+                },
+                {
+                  "type": "basic",
+                  "name": "Button",
+                  "props": {
+                    "type": "button",
+                    "className": "cs-admin-link"
+                  },
+                  "actions": [
+                    {
+                      "type": "click",
+                      "handler": "navigate",
+                      "params": {
+                        "path": "/consultation"
+                      }
+                    }
+                  ],
+                  "children": [
+                    {
+                      "type": "basic",
+                      "name": "Span",
+                      "text": "Public Preview"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "basic",
+              "name": "Div",
+              "props": {
+                "className": "cs-admin-main"
+              },
+              "children": [
+                {
+                  "type": "basic",
+                  "name": "Div",
+                  "props": {
+                    "className": "cs-admin-header"
+                  },
+                  "children": [
+                    {
+                      "type": "basic",
+                      "name": "Span",
+                      "props": {
+                        "className": "cs-admin-header-text"
+                      },
+                      "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.contactText ? _global.consultationStudioBrand.contactText : ''}}"
+                    }
+                  ]
+                },
+                {
+                  "type": "basic",
+                  "name": "Div",
+                  "slot": "content",
+                  "props": {
+                    "className": "cs-admin-content"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

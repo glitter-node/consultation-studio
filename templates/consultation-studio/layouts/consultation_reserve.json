@@ -1,0 +1,317 @@
+{
+  "version": "1.0.0",
+  "layout_name": "consultation_reserve",
+  "permissions": [],
+  "meta": {
+    "title": "Reserve Consultation"
+  },
+  "state": {
+    "selectedConsultationTypeId": null,
+    "selectedBranchId": null,
+    "selectedDate": "",
+    "selectedSlotId": null,
+    "verificationState": "idle",
+    "applicant": {
+      "name": "",
+      "phone": "",
+      "email": "",
+      "student_grade": "",
+      "memo": ""
+    },
+    "agreements": {
+      "privacy": false,
+      "reservation_policy": false
+    }
+  },
+  "data_sources": [
+    {
+      "id": "reservation",
+      "type": "api",
+      "endpoint": "/modules/glitter-reservation/reservation/services",
+      "method": "GET",
+      "auto_fetch": true,
+      "loading_strategy": "progressive",
+      "fallback": []
+    },
+    {
+      "id": "reservation_verification",
+      "type": "api",
+      "endpoint": "/modules/glitter-reservation/reservation/verification-status",
+      "method": "GET",
+      "auto_fetch": true,
+      "loading_strategy": "progressive",
+      "fallback": {
+        "verified": false,
+        "email": null,
+        "expires_at": null
+      }
+    },
+    {
+      "id": "available_slots",
+      "type": "api",
+      "endpoint": "/modules/glitter-reservation/reservation/slots",
+      "method": "GET",
+      "auto_fetch": true,
+      "loading_strategy": "progressive",
+      "if": "{{!!_local.selectedConsultationTypeId && !!_local.selectedDate}}",
+      "params": {
+        "service_id": "{{_local.selectedConsultationTypeId}}",
+        "booking_date": "{{_local.selectedDate}}"
+      },
+      "fallback": {
+        "slots": []
+      }
+    }
+  ],
+  "named_actions": {
+    "send_verification_email": {
+      "handler": "apiCall",
+      "target": "/modules/glitter-reservation/reservation/email-verifications",
+      "params": {
+        "method": "POST",
+        "body": {
+          "email": "{{_local.applicant && _local.applicant.email ? _local.applicant.email : ''}}"
+        }
+      },
+      "onSuccess": [
+        {
+          "handler": "setState",
+          "params": {
+            "verificationState": "sent"
+          }
+        },
+        {
+          "handler": "setState",
+          "params": {
+            "target": "global",
+            "consultationReservationVerificationState": "sent"
+          }
+        }
+      ]
+    }
+  },
+  "components": [
+    {
+      "id": "progress_header",
+      "type": "basic",
+      "name": "Div",
+      "props": {
+        "className": "cs-panel cs-block-progress-header"
+      }
+    },
+    {
+      "id": "consultation_type_selector",
+      "type": "composite",
+      "name": "consultation_type_selector",
+      "props": {
+        "className": "cs-panel cs-block-consultation-type-selector"
+      },
+      "children": [
+        {
+          "type": "basic",
+          "name": "H2",
+          "props": {
+            "className": "cs-block-title"
+          },
+          "text": "Consultation Type"
+        },
+        {
+          "type": "basic",
+          "name": "Div",
+          "iteration": {
+            "source": "{{reservation.consultation_types ?? []}}",
+            "item_var": "item",
+            "index_var": "index"
+          },
+          "props": {
+            "className": "cs-card-list"
+          },
+          "children": [
+            {
+              "type": "basic",
+              "name": "Button",
+              "props": {
+                "type": "button",
+                "className": "cs-option-card {{String(_local && _local.selectedConsultationTypeId ? _local.selectedConsultationTypeId : '') === String(item.id ?? '') ? 'is-active' : ''}}"
+              },
+              "text": "{{item.name ?? ''}}",
+              "actions": [
+                {
+                  "type": "click",
+                  "handler": "setState",
+                  "params": {
+                    "target": "local",
+                    "selectedConsultationTypeId": "{{item.id ?? null}}",
+                    "selectedDate": "",
+                    "selectedSlotId": null
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "branch_selector",
+      "type": "basic",
+      "name": "Div",
+      "props": {
+        "className": "cs-panel cs-block-branch-selector"
+      }
+    },
+    {
+      "id": "date_picker",
+      "type": "composite",
+      "name": "date_picker",
+      "props": {
+        "className": "cs-panel cs-block-date-picker"
+      },
+      "children": [
+        {
+          "type": "basic",
+          "name": "H2",
+          "props": {
+            "className": "cs-block-title"
+          },
+          "text": "Available Dates"
+        },
+        {
+          "type": "basic",
+          "name": "Div",
+          "iteration": {
+            "source": "{{reservation.available_dates ?? []}}",
+            "item_var": "item",
+            "index_var": "index"
+          },
+          "props": {
+            "className": "cs-chip-list"
+          },
+          "children": [
+            {
+              "type": "basic",
+              "name": "Button",
+              "props": {
+                "type": "button",
+                "className": "cs-chip {{String(_local && _local.selectedDate ? _local.selectedDate : '') === String(item ?? '') ? 'is-active' : ''}}",
+                "disabled": "{{!(_local && _local.selectedConsultationTypeId)}}"
+              },
+              "text": "{{item ?? ''}}",
+              "actions": [
+                {
+                  "type": "click",
+                  "handler": "setState",
+                  "params": {
+                    "target": "local",
+                    "selectedDate": "{{item ?? ''}}",
+                    "selectedSlotId": null
+                  }
+                },
+                {
+                  "type": "click",
+                  "handler": "refetchDataSource",
+                  "params": {
+                    "dataSourceId": "available_slots",
+                    "sync": true
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "time_slot_grid",
+      "type": "composite",
+      "name": "time_slot_grid",
+      "props": {
+        "className": "cs-panel cs-block-time-slot-grid"
+      },
+      "children": [
+        {
+          "type": "basic",
+          "name": "H2",
+          "props": {
+            "className": "cs-block-title"
+          },
+          "text": "Available Time Slots"
+        },
+        {
+          "type": "basic",
+          "name": "Div",
+          "if": "{{!!(_local && _local.selectedConsultationTypeId) && !!(_local && _local.selectedDate) && (reservation.available_slots ?? []).length > 0}}",
+          "iteration": {
+            "source": "{{reservation.available_slots ?? []}}",
+            "item_var": "item",
+            "index_var": "index"
+          },
+          "props": {
+            "className": "cs-chip-list"
+          },
+          "children": [
+            {
+              "type": "basic",
+              "name": "Button",
+              "props": {
+                "type": "button",
+                "className": "cs-chip {{String(_local && _local.selectedSlotId ? _local.selectedSlotId : '') === String(item ?? '') ? 'is-active' : ''}}"
+              },
+              "text": "{{item ?? ''}}",
+              "actions": [
+                {
+                  "type": "click",
+                  "handler": "setState",
+                  "params": {
+                    "target": "local",
+                    "selectedSlotId": "{{item ?? ''}}"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "applicant_form",
+      "type": "basic",
+      "name": "Div",
+      "props": {
+        "className": "cs-panel cs-block-applicant-form"
+      }
+    },
+    {
+      "id": "agreement_box",
+      "type": "basic",
+      "name": "Div",
+      "props": {
+        "className": "cs-panel cs-block-agreement-box"
+      }
+    },
+    {
+      "id": "reservation_summary",
+      "type": "composite",
+      "name": "reservation_summary",
+      "props": {
+        "className": "cs-panel cs-summary-panel cs-block-reservation-summary"
+      }
+    },
+    {
+      "id": "verification_status_box",
+      "type": "composite",
+      "name": "verification_status_box",
+      "props": {
+        "className": "cs-panel cs-block-verification-status-box"
+      }
+    },
+    {
+      "id": "action_bar",
+      "type": "composite",
+      "name": "action_bar",
+      "props": {
+        "className": "cs-panel cs-block-action-bar"
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+    "identifier": "glitter-reservation",
+    "vendor": "glitter",
+    "name": {
+        "ko": "예약",
+        "en": "Reservation"
+    },
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": {
+        "ko": "예약 관리를 위한 모듈",
+        "en": "Module for reservation management"
+    },
+    "g7_version": ">=7.0.0-beta.1",
+    "dependencies": {
+        "modules": {},
+        "plugins": {}
+    }
+}

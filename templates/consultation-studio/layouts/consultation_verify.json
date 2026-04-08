@@ -1,0 +1,274 @@
+{
+  "version": "1.0.0",
+  "layout_name": "consultation_verify",
+  "permissions": [],
+  "meta": {
+    "title": "Consultation Verification"
+  },
+  "data_sources": [
+    {
+      "id": "reservation",
+      "type": "api",
+      "endpoint": "/modules/glitter-reservation/reservation/verification-status",
+      "method": "GET",
+      "auto_fetch": true,
+      "loading_strategy": "progressive",
+      "fallback": {
+        "summary": {
+          "typeName": "",
+          "branchName": "",
+          "date": "",
+          "slotLabel": ""
+        },
+        "verification": {
+          "state": null,
+          "email": ""
+        }
+      }
+    }
+  ],
+  "named_actions": {
+    "resend_verification_email": {
+      "handler": "apiCall",
+      "target": "/modules/glitter-reservation/reservation/email-verifications",
+      "params": {
+        "method": "POST",
+        "body": {}
+      }
+    },
+    "go_to_complete_when_verified": {
+      "handler": "navigate",
+      "params": {
+        "path": "/consultation/complete"
+      }
+    }
+  },
+  "components": [
+      {
+        "id": "progress_header",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "Span",
+            "props": {
+              "className": "cs-step-label"
+            },
+            "text": "Step 3 of 4"
+          },
+          {
+            "type": "basic",
+            "name": "H1",
+            "props": {
+              "className": "cs-page-title"
+            },
+            "text": "Verification Status"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "Check your inbox and continue once your verification is complete."
+          }
+        ]
+      },
+      {
+        "id": "verification_status_box",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "H2",
+            "props": {
+              "className": "cs-block-title"
+            },
+            "text": "Current State"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-status-pill"
+            },
+            "text": "{{reservation.verification && reservation.verification.state ? reservation.verification.state : 'idle'}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "if": "{{(reservation.verification && reservation.verification.state ? reservation.verification.state : 'idle') === 'idle'}}",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "Start the verification flow to receive an email."
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "if": "{{(reservation.verification && reservation.verification.state ? reservation.verification.state : 'idle') === 'sent'}}",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "A verification email was sent. Open the message and follow the next step."
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "if": "{{(reservation.verification && reservation.verification.state ? reservation.verification.state : 'idle') === 'verified'}}",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "Your email is verified. You can continue to the completion screen."
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "if": "{{(reservation.verification && reservation.verification.state ? reservation.verification.state : 'idle') === 'expired'}}",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "This verification link expired. Request a new email to continue."
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "if": "{{(reservation.verification && reservation.verification.state ? reservation.verification.state : 'idle') === 'failed'}}",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "Verification could not be completed. Request another email and try again."
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Email: {{reservation.verification && reservation.verification.email ? reservation.verification.email : ''}}"
+          }
+        ]
+      },
+      {
+        "id": "reservation_summary",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel cs-summary-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "H2",
+            "props": {
+              "className": "cs-block-title"
+            },
+            "text": "Reservation Summary"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Type: {{reservation.summary && reservation.summary.typeName ? reservation.summary.typeName : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Branch: {{reservation.summary && reservation.summary.branchName ? reservation.summary.branchName : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Date: {{reservation.summary && reservation.summary.date ? reservation.summary.date : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Time: {{reservation.summary && reservation.summary.slotLabel ? reservation.summary.slotLabel : ''}}"
+          }
+        ]
+      },
+      {
+        "id": "action_bar",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "cs-inline-actions"
+            },
+            "children": [
+              {
+                "type": "basic",
+                "name": "Button",
+                "if": "{{['idle', 'sent', 'expired', 'failed'].includes(reservation.verification && reservation.verification.state ? reservation.verification.state : 'idle')}}",
+                "props": {
+                  "type": "button",
+                  "className": "cs-secondary-button"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "actionRef": "resend_verification_email"
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "text": "Resend Verification Email"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "name": "Button",
+                "if": "{{(reservation.verification && reservation.verification.state ? reservation.verification.state : 'idle') === 'verified'}}",
+                "props": {
+                  "type": "button",
+                  "className": "cs-primary-button"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "actionRef": "go_to_complete_when_verified"
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "text": "Go To Complete"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "version": "1.0.0",
+  "description": "Consultation Studio route mapping",
+  "routes": [
+    {
+      "path": "/",
+      "layout": "consultation_reserve",
+      "auth_required": false,
+      "meta": {
+        "title": "Reserve Consultation"
+      }
+    },
+    {
+      "path": "/consultation/reserve",
+      "layout": "consultation_reserve",
+      "auth_required": false,
+      "meta": {
+        "title": "Reserve Consultation"
+      }
+    },
+    {
+      "path": "/consultation/complete",
+      "layout": "consultation_complete",
+      "auth_required": false,
+      "meta": {
+        "title": "Consultation Complete"
+      }
+    },
+    {
+      "path": "/consultation/lookup",
+      "layout": "consultation_lookup",
+      "auth_required": false,
+      "meta": {
+        "title": "Consultation Lookup"
+      }
+    },
+    {
+      "path": "/admin/consultation/reservations",
+      "layout": "admin_reservation_list",
+      "auth_required": true,
+      "permissions": [
+        "consultation.reservations.read"
+      ],
+      "meta": {
+        "title": "Reservation List"
+      }
+    },
+    {
+      "path": "/admin/consultation/reservations/:id",
+      "layout": "admin_reservation_detail",
+      "auth_required": true,
+      "permissions": [
+        "consultation.reservations.read"
+      ],
+      "meta": {
+        "title": "Reservation Detail"
+      }
+    }
+  ]
+}
