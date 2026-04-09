@@ -144,11 +144,6 @@ class SettingsServiceProvider extends ServiceProvider
             );
         }
 
-        // 발신자 설정
-        if (! empty($mailSettings['from_address'])) {
-            Config::set('mail.from.address', $mailSettings['from_address']);
-        }
-
         if (! empty($mailSettings['from_name'])) {
             Config::set('mail.from.name', $mailSettings['from_name']);
         }

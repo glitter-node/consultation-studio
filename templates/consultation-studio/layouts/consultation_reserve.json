@@ -1,6 +1,7 @@
 {
   "version": "1.0.0",
   "layout_name": "consultation_reserve",
+  "extends": "_consultation_public_base",
   "permissions": [],
   "meta": {
     "title": "Reserve Consultation"
@@ -90,228 +91,342 @@
       ]
     }
   },
-  "components": [
-    {
-      "id": "progress_header",
-      "type": "basic",
-      "name": "Div",
-      "props": {
-        "className": "cs-panel cs-block-progress-header"
-      }
-    },
-    {
-      "id": "consultation_type_selector",
-      "type": "composite",
-      "name": "consultation_type_selector",
-      "props": {
-        "className": "cs-panel cs-block-consultation-type-selector"
-      },
-      "children": [
-        {
-          "type": "basic",
-          "name": "H2",
-          "props": {
-            "className": "cs-block-title"
-          },
-          "text": "Consultation Type"
+  "slots": {
+    "hero": [
+      {
+        "id": "reserve_hero",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel cs-block-progress-header"
         },
-        {
-          "type": "basic",
-          "name": "Div",
-          "iteration": {
-            "source": "{{reservation.consultation_types ?? []}}",
-            "item_var": "item",
-            "index_var": "index"
+        "children": [
+          {
+            "type": "basic",
+            "name": "Span",
+            "props": {
+              "className": "cs-step-label"
+            },
+            "text": "Step 1 of 4"
           },
-          "props": {
-            "className": "cs-card-list"
-          },
-          "children": [
-            {
-              "type": "basic",
-              "name": "Button",
-              "props": {
-                "type": "button",
-                "className": "cs-option-card {{String(_local && _local.selectedConsultationTypeId ? _local.selectedConsultationTypeId : '') === String(item.id ?? '') ? 'is-active' : ''}}"
-              },
-              "text": "{{item.name ?? ''}}",
-              "actions": [
-                {
-                  "type": "click",
-                  "handler": "setState",
-                  "params": {
-                    "target": "local",
-                    "selectedConsultationTypeId": "{{item.id ?? null}}",
-                    "selectedDate": "",
-                    "selectedSlotId": null
-                  }
-                }
-              ]
-            }
-          ]
+          {
+            "type": "basic",
+            "name": "H1",
+            "props": {
+              "className": "cs-page-title"
+            },
+            "text": "Reserve Consultation"
+          }
+        ]
+      }
+    ],
+    "page_intro": [
+      {
+        "id": "reserve_intro",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "Select a consultation service, confirm your preferred date and time, and prepare your applicant details before verification."
+          }
+        ]
+      }
+    ],
+    "main_content": [
+      {
+        "id": "consultation_type_selector",
+        "type": "composite",
+        "name": "consultation_type_selector",
+        "props": {
+          "className": "cs-panel cs-block-consultation-type-selector"
         }
-      ]
-    },
-    {
-      "id": "branch_selector",
-      "type": "basic",
-      "name": "Div",
-      "props": {
-        "className": "cs-panel cs-block-branch-selector"
-      }
-    },
-    {
-      "id": "date_picker",
-      "type": "composite",
-      "name": "date_picker",
-      "props": {
-        "className": "cs-panel cs-block-date-picker"
       },
-      "children": [
-        {
-          "type": "basic",
-          "name": "H2",
-          "props": {
-            "className": "cs-block-title"
-          },
-          "text": "Available Dates"
+      {
+        "id": "date_picker",
+        "type": "composite",
+        "name": "date_picker",
+        "props": {
+          "className": "cs-panel cs-block-date-picker"
+        }
+      },
+      {
+        "id": "time_slot_grid",
+        "type": "composite",
+        "name": "time_slot_grid",
+        "props": {
+          "className": "cs-panel cs-block-time-slot-grid"
+        }
+      },
+      {
+        "id": "applicant_form_section",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel cs-block-applicant-form"
         },
-        {
-          "type": "basic",
-          "name": "Div",
-          "iteration": {
-            "source": "{{reservation.available_dates ?? []}}",
-            "item_var": "item",
-            "index_var": "index"
+        "children": [
+          {
+            "type": "basic",
+            "name": "H2",
+            "props": {
+              "className": "cs-block-title"
+            },
+            "text": "Applicant Details"
           },
-          "props": {
-            "className": "cs-chip-list"
-          },
-          "children": [
-            {
-              "type": "basic",
-              "name": "Button",
-              "props": {
-                "type": "button",
-                "className": "cs-chip {{String(_local && _local.selectedDate ? _local.selectedDate : '') === String(item ?? '') ? 'is-active' : ''}}",
-                "disabled": "{{!(_local && _local.selectedConsultationTypeId)}}"
-              },
-              "text": "{{item ?? ''}}",
-              "actions": [
-                {
-                  "type": "click",
-                  "handler": "setState",
-                  "params": {
-                    "target": "local",
-                    "selectedDate": "{{item ?? ''}}",
-                    "selectedSlotId": null
-                  }
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "cs-form-grid"
+            },
+            "children": [
+              {
+                "type": "basic",
+                "name": "Input",
+                "props": {
+                  "type": "text",
+                  "name": "applicant_name",
+                  "className": "cs-input",
+                  "placeholder": "Applicant Name",
+                  "value": "{{_local.applicant && _local.applicant.name ? _local.applicant.name : ''}}"
                 },
-                {
-                  "type": "click",
-                  "handler": "refetchDataSource",
-                  "params": {
-                    "dataSourceId": "available_slots",
-                    "sync": true
+                "actions": [
+                  {
+                    "type": "change",
+                    "handler": "setState",
+                    "params": {
+                      "target": "local",
+                      "applicant.name": "{{$event.target.value}}"
+                    }
                   }
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "time_slot_grid",
-      "type": "composite",
-      "name": "time_slot_grid",
-      "props": {
-        "className": "cs-panel cs-block-time-slot-grid"
-      },
-      "children": [
-        {
-          "type": "basic",
-          "name": "H2",
-          "props": {
-            "className": "cs-block-title"
-          },
-          "text": "Available Time Slots"
-        },
-        {
-          "type": "basic",
-          "name": "Div",
-          "if": "{{!!(_local && _local.selectedConsultationTypeId) && !!(_local && _local.selectedDate) && (reservation.available_slots ?? []).length > 0}}",
-          "iteration": {
-            "source": "{{reservation.available_slots ?? []}}",
-            "item_var": "item",
-            "index_var": "index"
-          },
-          "props": {
-            "className": "cs-chip-list"
-          },
-          "children": [
-            {
-              "type": "basic",
-              "name": "Button",
-              "props": {
-                "type": "button",
-                "className": "cs-chip {{String(_local && _local.selectedSlotId ? _local.selectedSlotId : '') === String(item ?? '') ? 'is-active' : ''}}"
+                ]
               },
-              "text": "{{item ?? ''}}",
-              "actions": [
-                {
-                  "type": "click",
-                  "handler": "setState",
-                  "params": {
-                    "target": "local",
-                    "selectedSlotId": "{{item ?? ''}}"
+              {
+                "type": "basic",
+                "name": "Input",
+                "props": {
+                  "type": "text",
+                  "name": "applicant_phone",
+                  "className": "cs-input",
+                  "placeholder": "Phone Number",
+                  "value": "{{_local.applicant && _local.applicant.phone ? _local.applicant.phone : ''}}"
+                },
+                "actions": [
+                  {
+                    "type": "change",
+                    "handler": "setState",
+                    "params": {
+                      "target": "local",
+                      "applicant.phone": "{{$event.target.value}}"
+                    }
                   }
-                }
-              ]
-            }
-          ]
+                ]
+              },
+              {
+                "type": "basic",
+                "name": "Input",
+                "props": {
+                  "type": "email",
+                  "name": "applicant_email",
+                  "className": "cs-input",
+                  "placeholder": "Email Address",
+                  "value": "{{_local.applicant && _local.applicant.email ? _local.applicant.email : ''}}"
+                },
+                "actions": [
+                  {
+                    "type": "change",
+                    "handler": "setState",
+                    "params": {
+                      "target": "local",
+                      "applicant.email": "{{$event.target.value}}"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "name": "Input",
+                "props": {
+                  "type": "text",
+                  "name": "student_grade",
+                  "className": "cs-input",
+                  "placeholder": "Student Grade",
+                  "value": "{{_local.applicant && _local.applicant.student_grade ? _local.applicant.student_grade : ''}}"
+                },
+                "actions": [
+                  {
+                    "type": "change",
+                    "handler": "setState",
+                    "params": {
+                      "target": "local",
+                      "applicant.student_grade": "{{$event.target.value}}"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "name": "Textarea",
+                "props": {
+                  "name": "applicant_memo",
+                  "className": "cs-textarea",
+                  "placeholder": "Notes for the reservation team"
+                },
+                "text": "{{_local.applicant && _local.applicant.memo ? _local.applicant.memo : ''}}",
+                "actions": [
+                  {
+                    "type": "change",
+                    "handler": "setState",
+                    "params": {
+                      "target": "local",
+                      "applicant.memo": "{{$event.target.value}}"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "agreement_section",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel cs-block-agreement-box"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "H2",
+            "props": {
+              "className": "cs-block-title"
+            },
+            "text": "Acknowledgements"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "Confirm the required policies before sending the verification email."
+          },
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "cs-inline-actions"
+            },
+            "children": [
+              {
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "type": "button",
+                  "className": "cs-secondary-button"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "setState",
+                    "params": {
+                      "target": "local",
+                      "agreements.privacy": "{{!(_local.agreements && _local.agreements.privacy)}}"
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "text": "Privacy Policy {{_local.agreements && _local.agreements.privacy ? 'Confirmed' : 'Required'}}"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "type": "button",
+                  "className": "cs-secondary-button"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "setState",
+                    "params": {
+                      "target": "local",
+                      "agreements.reservation_policy": "{{!(_local.agreements && _local.agreements.reservation_policy)}}"
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "text": "Reservation Policy {{_local.agreements && _local.agreements.reservation_policy ? 'Confirmed' : 'Required'}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "action_bar",
+        "type": "composite",
+        "name": "action_bar",
+        "props": {
+          "className": "cs-panel cs-block-action-bar"
         }
-      ]
-    },
-    {
-      "id": "applicant_form",
-      "type": "basic",
-      "name": "Div",
-      "props": {
-        "className": "cs-panel cs-block-applicant-form"
       }
-    },
-    {
-      "id": "agreement_box",
-      "type": "basic",
-      "name": "Div",
-      "props": {
-        "className": "cs-panel cs-block-agreement-box"
+    ],
+    "side_content": [
+      {
+        "id": "reservation_summary",
+        "type": "composite",
+        "name": "reservation_summary",
+        "props": {
+          "className": "cs-panel cs-summary-panel cs-block-reservation-summary cs-sticky-stack"
+        }
+      },
+      {
+        "id": "verification_status_box",
+        "type": "composite",
+        "name": "verification_status_box",
+        "props": {
+          "className": "cs-panel cs-block-verification-status-box"
+        }
       }
-    },
-    {
-      "id": "reservation_summary",
-      "type": "composite",
-      "name": "reservation_summary",
-      "props": {
-        "className": "cs-panel cs-summary-panel cs-block-reservation-summary"
+    ],
+    "footer_notice": [
+      {
+        "id": "reserve_notice",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.branchNotice ? _global.consultationStudioBrand.branchNotice : ''}}"
+          }
+        ]
       }
-    },
-    {
-      "id": "verification_status_box",
-      "type": "composite",
-      "name": "verification_status_box",
-      "props": {
-        "className": "cs-panel cs-block-verification-status-box"
-      }
-    },
-    {
-      "id": "action_bar",
-      "type": "composite",
-      "name": "action_bar",
-      "props": {
-        "className": "cs-panel cs-block-action-bar"
-      }
-    }
-  ]
+    ]
+  }
 }

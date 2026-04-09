@@ -1,0 +1,375 @@
+{
+    "version": "1.0.0",
+    "layout_name": "auth_login",
+    "extends": "_consultation_public_base",
+    "permissions": [],
+    "meta": {
+        "title": "Consultation Login"
+    },
+    "init_actions": [
+        {
+            "handler": "setState",
+            "params": {
+                "target": "global",
+                "isLoggingIn": false,
+                "loginError": null,
+                "loginErrors": null
+            }
+        }
+    ],
+    "slots": {
+        "hero": [
+            {
+                "id": "auth_login_hero",
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                    "className": "cs-panel cs-home-hero"
+                },
+                "children": [
+                    {
+                        "type": "basic",
+                        "name": "Span",
+                        "props": {
+                            "className": "cs-step-label"
+                        },
+                        "text": "Sign In"
+                    },
+                    {
+                        "type": "basic",
+                        "name": "H1",
+                        "props": {
+                            "className": "cs-page-title"
+                        },
+                        "text": "Access Your Consultation Portal"
+                    }
+                ]
+            }
+        ],
+        "page_intro": [
+            {
+                "id": "auth_login_intro",
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                    "className": "cs-panel"
+                },
+                "children": [
+                    {
+                        "type": "basic",
+                        "name": "P",
+                        "props": {
+                            "className": "cs-page-copy"
+                        },
+                        "text": "Sign in with your registered account to continue to protected consultation and member services."
+                    }
+                ]
+            }
+        ],
+        "main_content": [
+            {
+                "id": "auth_login_content",
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                    "className": "cs-page-grid cs-lookup-shell"
+                },
+                "children": [
+                    {
+                        "id": "auth_login_form",
+                        "type": "basic",
+                        "name": "Form",
+                        "props": {
+                            "id": "auth_login_form",
+                            "className": "cs-panel cs-form-grid"
+                        },
+                        "children": [
+                            {
+                                "type": "basic",
+                                "name": "H2",
+                                "props": {
+                                    "className": "cs-block-title"
+                                },
+                                "text": "Login"
+                            },
+                            {
+                                "type": "basic",
+                                "name": "P",
+                                "if": "{{_global.loginError}}",
+                                "props": {
+                                    "className": "cs-auth-message cs-auth-message-error",
+                                    "role": "alert",
+                                    "aria-live": "polite"
+                                },
+                                "text": "{{_global.loginError}}"
+                            },
+                            {
+                                "type": "basic",
+                                "name": "Div",
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "Label",
+                                        "props": {
+                                            "className": "cs-summary-label"
+                                        },
+                                        "text": "Email"
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "Input",
+                                        "props": {
+                                            "name": "email",
+                                            "type": "email",
+                                            "placeholder": "Email address",
+                                            "className": "cs-input",
+                                            "disabled": "{{_global.isLoggingIn}}",
+                                            "required": true
+                                        }
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "P",
+                                        "if": "{{_global.loginErrors?.email}}",
+                                        "props": {
+                                            "className": "cs-auth-field-error"
+                                        },
+                                        "text": "{{Array.isArray(_global.loginErrors?.email) ? _global.loginErrors.email[0] : _global.loginErrors?.email}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "name": "Div",
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "Label",
+                                        "props": {
+                                            "className": "cs-summary-label"
+                                        },
+                                        "text": "Password"
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "Input",
+                                        "props": {
+                                            "name": "password",
+                                            "type": "password",
+                                            "placeholder": "Password",
+                                            "className": "cs-input",
+                                            "disabled": "{{_global.isLoggingIn}}",
+                                            "required": true
+                                        }
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "P",
+                                        "if": "{{_global.loginErrors?.password}}",
+                                        "props": {
+                                            "className": "cs-auth-field-error"
+                                        },
+                                        "text": "{{Array.isArray(_global.loginErrors?.password) ? _global.loginErrors.password[0] : _global.loginErrors?.password}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "name": "Button",
+                                "props": {
+                                    "type": "submit",
+                                    "className": "cs-primary-button",
+                                    "disabled": "{{_global.isLoggingIn}}"
+                                },
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "Span",
+                                        "text": "{{_global.isLoggingIn ? 'Signing In...' : 'Sign In'}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "name": "Div",
+                                "props": {
+                                    "className": "cs-auth-inline-links"
+                                },
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "Button",
+                                        "props": {
+                                            "type": "button",
+                                            "className": "cs-auth-link"
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "click",
+                                                "handler": "navigate",
+                                                "params": {
+                                                    "path": "/register"
+                                                }
+                                            }
+                                        ],
+                                        "children": [
+                                            {
+                                                "type": "basic",
+                                                "name": "Span",
+                                                "text": "Create Account"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "Button",
+                                        "props": {
+                                            "type": "button",
+                                            "className": "cs-auth-link"
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "click",
+                                                "handler": "navigate",
+                                                "params": {
+                                                    "path": "/forgot-password"
+                                                }
+                                            }
+                                        ],
+                                        "children": [
+                                            {
+                                                "type": "basic",
+                                                "name": "Span",
+                                                "text": "Forgot Password"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "actions": [
+                            {
+                                "type": "submit",
+                                "handler": "sequence",
+                                "actions": [
+                                    {
+                                        "handler": "setState",
+                                        "params": {
+                                            "target": "global",
+                                            "isLoggingIn": true,
+                                            "loginError": null,
+                                            "loginErrors": null
+                                        }
+                                    },
+                                    {
+                                        "handler": "login",
+                                        "target": "user",
+                                        "params": {
+                                            "body": {
+                                                "email": "{{form.email}}",
+                                                "password": "{{form.password}}"
+                                            }
+                                        },
+                                        "onSuccess": [
+                                            {
+                                                "handler": "setState",
+                                                "params": {
+                                                    "target": "global",
+                                                    "currentUser": "{{response.user}}",
+                                                    "isLoggingIn": false,
+                                                    "loginError": null,
+                                                    "loginErrors": null
+                                                }
+                                            },
+                                            {
+                                                "handler": "navigate",
+                                                "params": {
+                                                    "path": "{{query.redirect ?? '/'}}"
+                                                }
+                                            }
+                                        ],
+                                        "onError": [
+                                            {
+                                                "handler": "setState",
+                                                "params": {
+                                                    "target": "global",
+                                                    "isLoggingIn": false,
+                                                    "loginError": "{{error.message}}",
+                                                    "loginErrors": "{{error.errors}}"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "side_content": [
+            {
+                "id": "auth_login_summary",
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                    "className": "cs-panel cs-summary-panel"
+                },
+                "children": [
+                    {
+                        "type": "basic",
+                        "name": "H2",
+                        "props": {
+                            "className": "cs-block-title"
+                        },
+                        "text": "What Happens Next"
+                    },
+                    {
+                        "type": "basic",
+                        "name": "P",
+                        "props": {
+                            "className": "cs-summary-line"
+                        },
+                        "text": "1. Your credentials are sent to the existing /api/auth/login endpoint through the built-in login action."
+                    },
+                    {
+                        "type": "basic",
+                        "name": "P",
+                        "props": {
+                            "className": "cs-summary-line"
+                        },
+                        "text": "2. The frontend auth manager stores the returned token and updates the authenticated user state."
+                    },
+                    {
+                        "type": "basic",
+                        "name": "P",
+                        "props": {
+                            "className": "cs-summary-line"
+                        },
+                        "text": "3. You are redirected to the requested page or back to the portal home."
+                    }
+                ]
+            }
+        ],
+        "footer_notice": [
+            {
+                "id": "auth_login_notice",
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                    "className": "cs-panel"
+                },
+                "children": [
+                    {
+                        "type": "basic",
+                        "name": "P",
+                        "props": {
+                            "className": "cs-page-copy"
+                        },
+                        "text": "Use the same account credentials managed by the existing Gnuboard 7 authentication backend."
+                    }
+                ]
+            }
+        ]
+    }
+}

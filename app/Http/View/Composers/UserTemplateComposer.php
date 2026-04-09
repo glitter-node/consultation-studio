@@ -115,17 +115,16 @@ class UserTemplateComposer
             return [[], []];
         }
 
-        $cacheVersion = ClearsTemplateCaches::getExtensionCacheVersion();
-
         return [
-            $this->buildTemplateAssetUrls($identifier, $templateJson['assets']['css'] ?? [], $cacheVersion),
-            $this->buildTemplateAssetUrls($identifier, $templateJson['assets']['js'] ?? [], $cacheVersion),
+            $this->buildTemplateAssetUrls($identifier, $templateJson['assets']['css'] ?? []),
+            $this->buildTemplateAssetUrls($identifier, $templateJson['assets']['js'] ?? []),
         ];
     }
 
-    private function buildTemplateAssetUrls(string $identifier, array $paths, int $cacheVersion): array
+    private function buildTemplateAssetUrls(string $identifier, array $paths): array
     {
         $urls = [];
+        $fallbackVersion = ClearsTemplateCaches::getExtensionCacheVersion();
 
         foreach ($paths as $path) {
             if (! is_string($path) || $path === '') {
@@ -133,10 +132,25 @@ class UserTemplateComposer
             }
 
             $servePath = preg_replace('#^dist/#', '', $path) ?? $path;
-            $urls[] = "/api/templates/assets/{$identifier}/{$servePath}?v={$cacheVersion}";
+            $assetVersion = $this->resolveTemplateAssetVersion($identifier, $path, $fallbackVersion);
+            $urls[] = "/api/templates/assets/{$identifier}/{$servePath}?v={$assetVersion}";
         }
 
         return $urls;
+    }
+
+    private function resolveTemplateAssetVersion(string $identifier, string $path, int $fallbackVersion): int
+    {
+        $assetPath = base_path("templates/{$identifier}/{$path}");
+
+        if (file_exists($assetPath)) {
+            $modifiedAt = filemtime($assetPath);
+            if ($modifiedAt !== false) {
+                return $modifiedAt;
+            }
+        }
+
+        return $fallbackVersion > 0 ? $fallbackVersion : time();
     }
 
     /**

@@ -1,6 +1,7 @@
 {
   "version": "1.0.0",
   "layout_name": "consultation_verify",
+  "extends": "_consultation_public_base",
   "permissions": [],
   "meta": {
     "title": "Consultation Verification"
@@ -43,9 +44,10 @@
       }
     }
   },
-  "components": [
+  "slots": {
+    "hero": [
       {
-        "id": "progress_header",
+        "id": "verify_hero",
         "type": "basic",
         "name": "Div",
         "props": {
@@ -67,17 +69,31 @@
               "className": "cs-page-title"
             },
             "text": "Verification Status"
-          },
+          }
+        ]
+      }
+    ],
+    "page_intro": [
+      {
+        "id": "verify_intro",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
           {
             "type": "basic",
             "name": "P",
             "props": {
               "className": "cs-page-copy"
             },
-            "text": "Check your inbox and continue once your verification is complete."
+            "text": "Check your inbox, review the current verification state, and continue when your reservation contact is verified."
           }
         ]
-      },
+      }
+    ],
+    "main_content": [
       {
         "id": "verification_status_box",
         "type": "basic",
@@ -158,56 +174,6 @@
         ]
       },
       {
-        "id": "reservation_summary",
-        "type": "basic",
-        "name": "Div",
-        "props": {
-          "className": "cs-panel cs-summary-panel"
-        },
-        "children": [
-          {
-            "type": "basic",
-            "name": "H2",
-            "props": {
-              "className": "cs-block-title"
-            },
-            "text": "Reservation Summary"
-          },
-          {
-            "type": "basic",
-            "name": "P",
-            "props": {
-              "className": "cs-summary-line"
-            },
-            "text": "Type: {{reservation.summary && reservation.summary.typeName ? reservation.summary.typeName : ''}}"
-          },
-          {
-            "type": "basic",
-            "name": "P",
-            "props": {
-              "className": "cs-summary-line"
-            },
-            "text": "Branch: {{reservation.summary && reservation.summary.branchName ? reservation.summary.branchName : ''}}"
-          },
-          {
-            "type": "basic",
-            "name": "P",
-            "props": {
-              "className": "cs-summary-line"
-            },
-            "text": "Date: {{reservation.summary && reservation.summary.date ? reservation.summary.date : ''}}"
-          },
-          {
-            "type": "basic",
-            "name": "P",
-            "props": {
-              "className": "cs-summary-line"
-            },
-            "text": "Time: {{reservation.summary && reservation.summary.slotLabel ? reservation.summary.slotLabel : ''}}"
-          }
-        ]
-      },
-      {
         "id": "action_bar",
         "type": "basic",
         "name": "Div",
@@ -270,5 +236,78 @@
           }
         ]
       }
-  ]
+    ],
+    "side_content": [
+      {
+        "id": "reservation_summary",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel cs-summary-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "H2",
+            "props": {
+              "className": "cs-block-title"
+            },
+            "text": "Reservation Summary"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Type: {{reservation.summary && reservation.summary.typeName ? reservation.summary.typeName : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Branch: {{reservation.summary && reservation.summary.branchName ? reservation.summary.branchName : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Date: {{reservation.summary && reservation.summary.date ? reservation.summary.date : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Time: {{reservation.summary && reservation.summary.slotLabel ? reservation.summary.slotLabel : ''}}"
+          }
+        ]
+      }
+    ],
+    "footer_notice": [
+      {
+        "id": "verify_notice",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.completionNotice ? _global.consultationStudioBrand.completionNotice : 'A confirmation email will be sent after verification is completed.'}}"
+          }
+        ]
+      }
+    ]
+  }
 }

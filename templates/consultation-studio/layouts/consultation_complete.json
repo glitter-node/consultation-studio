@@ -1,6 +1,7 @@
 {
   "version": "1.0.0",
   "layout_name": "consultation_complete",
+  "extends": "_consultation_public_base",
   "permissions": [],
   "meta": {
     "title": "Consultation Complete"
@@ -13,251 +14,297 @@
       }
     }
   },
-  "components": [
-    {
-      "id": "progress_header",
-      "type": "basic",
-      "name": "Div",
-      "props": {
-        "className": "cs-panel"
+  "slots": {
+    "hero": [
+      {
+        "id": "complete_hero",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "Span",
+            "props": {
+              "className": "cs-step-label"
+            },
+            "text": "Step 4 of 4"
+          },
+          {
+            "type": "basic",
+            "name": "H1",
+            "props": {
+              "className": "cs-page-title"
+            },
+            "text": "Reservation Completed"
+          }
+        ]
+      }
+    ],
+    "page_intro": [
+      {
+        "id": "complete_intro",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "Review the final reservation summary and the next steps for communication with the consultation office."
+          }
+        ]
+      }
+    ],
+    "main_content": [
+      {
+        "id": "completion_status",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "H2",
+            "props": {
+              "className": "cs-block-title"
+            },
+            "text": "Completion Status"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-status-pill"
+            },
+            "text": "{{query.status ? query.status : 'pending'}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "if": "{{(query.status ? query.status : 'pending') === 'confirmed'}}",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "Your reservation is confirmed."
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "if": "{{(query.status ? query.status : 'pending') === 'pending'}}",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "Your reservation is pending review."
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "if": "{{(query.status ? query.status : 'pending') === 'cancelled'}}",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "This reservation has been cancelled."
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "if": "{{(query.status ? query.status : 'pending') === 'completed'}}",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "This reservation has been completed."
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "if": "{{(query.status ? query.status : 'pending') === 'no_show'}}",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "This reservation was marked as no show."
+          }
+        ]
       },
-      "children": [
-        {
-          "type": "basic",
-          "name": "Span",
-          "props": {
-            "className": "cs-step-label"
-          },
-          "text": "Step 4 of 4"
+      {
+        "id": "reservation_summary",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel cs-summary-panel"
         },
-        {
-          "type": "basic",
-          "name": "H1",
-          "props": {
-            "className": "cs-page-title"
+        "children": [
+          {
+            "type": "basic",
+            "name": "H2",
+            "props": {
+              "className": "cs-block-title"
+            },
+            "text": "Completion Summary"
           },
-          "text": "Reservation Completed"
-        }
-      ]
-    },
-    {
-      "id": "completion_status",
-      "type": "basic",
-      "name": "Div",
-      "props": {
-        "className": "cs-panel"
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Reservation Number: {{query.id ? query.id : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Type: {{query.type_name ? query.type_name : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Branch: {{query.branch_name ? query.branch_name : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Date: {{query.date ? query.date : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Time: {{query.slot_label ? query.slot_label : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Applicant: {{query.applicant_name ? query.applicant_name : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Phone: {{query.applicant_phone ? query.applicant_phone : ''}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Email: {{query.applicant_email ? query.applicant_email : ''}}"
+          }
+        ]
+      }
+    ],
+    "side_content": [
+      {
+        "id": "completion_notice",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "H2",
+            "props": {
+              "className": "cs-block-title"
+            },
+            "text": "Next Step Notice"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "{{query.notice ? query.notice : (_global.consultationStudioBrand && _global.consultationStudioBrand.completionNotice ? _global.consultationStudioBrand.completionNotice : 'A confirmation email will be sent after verification is completed.')}}"
+          }
+        ]
       },
-      "children": [
-        {
-          "type": "basic",
-          "name": "H2",
-          "props": {
-            "className": "cs-block-title"
-          },
-          "text": "Completion Status"
+      {
+        "id": "action_bar",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
         },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-status-pill"
-          },
-          "text": "{{query.status ?? 'pending'}}"
+        "children": [
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "cs-inline-actions"
+            },
+            "children": [
+              {
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "type": "button",
+                  "className": "cs-primary-button"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "actionRef": "go_to_lookup"
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "text": "Lookup Reservation"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "footer_notice": [
+      {
+        "id": "complete_notice_footer",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
         },
-        {
-          "type": "basic",
-          "name": "P",
-          "if": "{{(query.status ?? 'pending') === 'confirmed'}}",
-          "props": {
-            "className": "cs-page-copy"
-          },
-          "text": "Your reservation is confirmed."
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "if": "{{(query.status ?? 'pending') === 'pending'}}",
-          "props": {
-            "className": "cs-page-copy"
-          },
-          "text": "Your reservation is pending review."
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "if": "{{(query.status ?? 'pending') === 'cancelled'}}",
-          "props": {
-            "className": "cs-page-copy"
-          },
-          "text": "This reservation has been cancelled."
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "if": "{{(query.status ?? 'pending') === 'completed'}}",
-          "props": {
-            "className": "cs-page-copy"
-          },
-          "text": "This reservation has been completed."
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "if": "{{(query.status ?? 'pending') === 'no_show'}}",
-          "props": {
-            "className": "cs-page-copy"
-          },
-          "text": "This reservation was marked as no show."
-        }
-      ]
-    },
-    {
-      "id": "reservation_summary",
-      "type": "basic",
-      "name": "Div",
-      "props": {
-        "className": "cs-panel cs-summary-panel"
-      },
-      "children": [
-        {
-          "type": "basic",
-          "name": "H2",
-          "props": {
-            "className": "cs-block-title"
-          },
-          "text": "Completion Summary"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-summary-line"
-          },
-          "text": "Reservation Number: {{query.id ?? ''}}"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-summary-line"
-          },
-          "text": "Type: {{query.type_name ?? ''}}"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-summary-line"
-          },
-          "text": "Branch: {{query.branch_name ?? ''}}"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-summary-line"
-          },
-          "text": "Date: {{query.date ?? ''}}"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-summary-line"
-          },
-          "text": "Time: {{query.slot_label ?? ''}}"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-summary-line"
-          },
-          "text": "Applicant: {{query.applicant_name ?? ''}}"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-summary-line"
-          },
-          "text": "Phone: {{query.applicant_phone ?? ''}}"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-summary-line"
-          },
-          "text": "Email: {{query.applicant_email ?? ''}}"
-        }
-      ]
-    },
-    {
-      "id": "completion_notice",
-      "type": "basic",
-      "name": "Div",
-      "props": {
-        "className": "cs-panel"
-      },
-      "children": [
-        {
-          "type": "basic",
-          "name": "H2",
-          "props": {
-            "className": "cs-block-title"
-          },
-          "text": "Notice"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-page-copy"
-          },
-          "text": "{{query.notice ? query.notice : (_global.consultationStudioBrand && _global.consultationStudioBrand.completionNotice ? _global.consultationStudioBrand.completionNotice : 'A confirmation email will be sent after verification is completed.')}}"
-        }
-      ]
-    },
-    {
-      "id": "action_bar",
-      "type": "basic",
-      "name": "Div",
-      "props": {
-        "className": "cs-panel"
-      },
-      "children": [
-        {
-          "type": "basic",
-          "name": "Div",
-          "props": {
-            "className": "cs-inline-actions"
-          },
-          "children": [
-            {
-              "type": "basic",
-              "name": "Button",
-              "props": {
-                "type": "button",
-                "className": "cs-primary-button"
-              },
-              "actions": [
-                {
-                  "type": "click",
-                  "actionRef": "go_to_lookup"
-                }
-              ],
-              "children": [
-                {
-                  "type": "basic",
-                  "name": "Span",
-                  "text": "Lookup Reservation"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
+        "children": [
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.branchNotice ? _global.consultationStudioBrand.branchNotice : ''}}"
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -1,60 +1,108 @@
 {
-  "version": "1.0.0",
-  "description": "Consultation Studio route mapping",
-  "routes": [
-    {
-      "path": "/",
-      "layout": "consultation_reserve",
-      "auth_required": false,
-      "meta": {
-        "title": "Reserve Consultation"
-      }
-    },
-    {
-      "path": "/consultation/reserve",
-      "layout": "consultation_reserve",
-      "auth_required": false,
-      "meta": {
-        "title": "Reserve Consultation"
-      }
-    },
-    {
-      "path": "/consultation/complete",
-      "layout": "consultation_complete",
-      "auth_required": false,
-      "meta": {
-        "title": "Consultation Complete"
-      }
-    },
-    {
-      "path": "/consultation/lookup",
-      "layout": "consultation_lookup",
-      "auth_required": false,
-      "meta": {
-        "title": "Consultation Lookup"
-      }
-    },
-    {
-      "path": "/admin/consultation/reservations",
-      "layout": "admin_reservation_list",
-      "auth_required": true,
-      "permissions": [
-        "consultation.reservations.read"
-      ],
-      "meta": {
-        "title": "Reservation List"
-      }
-    },
-    {
-      "path": "/admin/consultation/reservations/:id",
-      "layout": "admin_reservation_detail",
-      "auth_required": true,
-      "permissions": [
-        "consultation.reservations.read"
-      ],
-      "meta": {
-        "title": "Reservation Detail"
-      }
-    }
-  ]
+    "version": "1.0.0",
+    "description": "Consultation Studio route mapping",
+    "routes": [
+        {
+            "path": "/",
+            "layout": "consultation_home",
+            "auth_required": false,
+            "meta": {
+                "title": "Consultation Portal"
+            }
+        },
+        {
+            "path": "/consultation",
+            "layout": "consultation_home",
+            "auth_required": false,
+            "meta": {
+                "title": "Consultation Portal"
+            }
+        },
+        {
+            "path": "/login",
+            "layout": "auth_login",
+            "auth_required": false,
+            "meta": {
+                "title": "Consultation Login"
+            }
+        },
+        {
+            "path": "/register",
+            "layout": "auth_register",
+            "auth_required": false,
+            "meta": {
+                "title": "Consultation Register"
+            }
+        },
+        {
+            "path": "/forgot-password",
+            "layout": "auth_forgot_password",
+            "auth_required": false,
+            "meta": {
+                "title": "Consultation Password Recovery"
+            }
+        },
+        {
+            "path": "/reset-password",
+            "layout": "auth_reset_password",
+            "auth_required": false,
+            "meta": {
+                "title": "Consultation Reset Password"
+            }
+        },
+        {
+            "path": "/consultation/reserve",
+            "layout": "consultation_reserve",
+            "auth_required": false,
+            "meta": {
+                "title": "Reserve Consultation"
+            }
+        },
+        {
+            "path": "/consultation/verify",
+            "layout": "consultation_verify",
+            "auth_required": false,
+            "meta": {
+                "title": "Verification Status"
+            }
+        },
+        {
+            "path": "/consultation/lookup",
+            "layout": "consultation_lookup",
+            "auth_required": false,
+            "meta": {
+                "title": "Consultation Lookup"
+            }
+        },
+        {
+            "path": "/consultation/complete",
+            "layout": "consultation_complete",
+            "auth_required": false,
+            "meta": {
+                "title": "Consultation Complete"
+            }
+        },
+        {
+            "path": "/admin/consultation/reservations",
+            "layout": "admin_reservation_list",
+            "auth_required": true,
+            "permissions": [
+                "consultation.reservations.read"
+            ],
+            "meta": {
+                "title": "Reservation List"
+            }
+        },
+        {
+            "path": "/admin/consultation/reservations/:id",
+            "layout": "admin_reservation_detail",
+            "auth_required": true,
+            "permissions": [
+                "consultation.reservations.read"
+            ],
+            "meta": {
+                "title": "Reservation Detail"
+            }
+        }
+    ]
 }

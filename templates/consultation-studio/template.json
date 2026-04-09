@@ -28,8 +28,7 @@
   "assets": {
     "css": [
       "assets/css/theme.css",
-      "assets/css/public.css",
-      "assets/css/admin.css"
+      "assets/css/public.css"
     ],
     "js": [
       "assets/js/index.js"

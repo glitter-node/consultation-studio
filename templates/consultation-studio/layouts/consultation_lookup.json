@@ -1,6 +1,7 @@
 {
   "version": "1.0.0",
   "layout_name": "consultation_lookup",
+  "extends": "_consultation_public_base",
   "permissions": [],
   "meta": {
     "title": "Consultation Lookup"
@@ -52,232 +53,280 @@
       }
     }
   },
-  "components": [
-    {
-      "id": "progress_header",
-      "type": "basic",
-      "name": "Div",
-      "props": {
-        "className": "cs-panel"
-      },
-      "children": [
-        {
-          "type": "basic",
-          "name": "Span",
-          "props": {
-            "className": "cs-step-label"
-          },
-          "text": "Lookup"
+  "slots": {
+    "hero": [
+      {
+        "id": "lookup_hero",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
         },
-        {
-          "type": "basic",
-          "name": "H1",
-          "props": {
-            "className": "cs-page-title"
-          },
-          "text": "Reservation Lookup"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-page-copy"
-          },
-          "text": "Search for an existing reservation and review its current status."
-        }
-      ]
-    },
-    {
-      "id": "reservation_lookup_form",
-      "type": "basic",
-      "name": "Form",
-      "props": {
-        "id": "reservation_lookup_form",
-        "className": "cs-panel cs-form-grid"
-      },
-      "actions": [
-        {
-          "type": "submit",
-          "actionRef": "submit_lookup"
-        }
-      ],
-      "children": [
-        {
-          "type": "basic",
-          "name": "H2",
-          "props": {
-            "className": "cs-block-title"
-          },
-          "text": "Lookup Form"
-        },
-        {
-          "type": "basic",
-          "name": "Input",
-          "props": {
-            "name": "customer_phone",
-            "type": "text",
-            "value": "{{query.customer_phone ?? ''}}",
-            "placeholder": "Contact Number",
-            "className": "cs-input"
-          }
-        }
-      ]
-    },
-    {
-      "id": "reservation_status_card",
-      "type": "basic",
-      "name": "Div",
-      "props": {
-        "className": "cs-panel cs-summary-panel"
-      },
-      "children": [
-        {
-          "type": "basic",
-          "name": "H2",
-          "props": {
-            "className": "cs-block-title"
-          },
-          "text": "Reservation Status"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-summary-line"
-          },
-          "text": "Reservation ID: {{reservation.lookup && reservation.lookup.reservationNumber ? reservation.lookup.reservationNumber : ''}}"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-status-pill"
-          },
-          "text": "{{reservation.lookup && reservation.lookup.state ? reservation.lookup.state : 'pending'}}"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-summary-line"
-          },
-          "text": "Type: {{reservation.lookup && reservation.lookup.typeName ? reservation.lookup.typeName : ''}}"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-summary-line"
-          },
-          "text": "Branch: {{reservation.lookup && reservation.lookup.branchName ? reservation.lookup.branchName : ''}}"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-summary-line"
-          },
-          "text": "Date: {{reservation.lookup && reservation.lookup.date ? reservation.lookup.date : ''}}"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-summary-line"
-          },
-          "text": "Time: {{reservation.lookup && reservation.lookup.slotLabel ? reservation.lookup.slotLabel : ''}}"
-        }
-      ]
-    },
-    {
-      "id": "verification_status_box",
-      "type": "basic",
-      "name": "Div",
-      "props": {
-        "className": "cs-panel"
-      },
-      "children": [
-        {
-          "type": "basic",
-          "name": "H2",
-          "props": {
-            "className": "cs-block-title"
-          },
-          "text": "Current Status"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-status-pill"
-          },
-          "text": "{{reservation.lookup && reservation.lookup.state ? reservation.lookup.state : (reservation.verification && reservation.verification.state ? reservation.verification.state : '')}}"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "cs-summary-line"
-          },
-          "text": "Contact: {{query.customer_phone ?? ''}}"
-        }
-      ]
-    },
-    {
-      "id": "action_bar",
-      "type": "basic",
-      "name": "Div",
-      "props": {
-        "className": "cs-panel"
-      },
-      "children": [
-        {
-          "type": "basic",
-          "name": "Div",
-          "props": {
-            "className": "cs-inline-actions"
-          },
-          "children": [
-            {
-              "type": "basic",
-              "name": "Button",
-              "props": {
-                "type": "submit",
-                "form": "reservation_lookup_form",
-                "className": "cs-primary-button"
-              },
-              "children": [
-                {
-                  "type": "basic",
-                  "name": "Span",
-                  "text": "Submit Lookup"
-                }
-              ]
+        "children": [
+          {
+            "type": "basic",
+            "name": "Span",
+            "props": {
+              "className": "cs-step-label"
             },
-            {
-              "type": "basic",
-              "name": "Button",
-              "props": {
-                "type": "button",
-                "className": "cs-secondary-button"
+            "text": "Lookup"
+          },
+          {
+            "type": "basic",
+            "name": "H1",
+            "props": {
+              "className": "cs-page-title"
+            },
+            "text": "Reservation Lookup"
+          }
+        ]
+      }
+    ],
+    "page_intro": [
+      {
+        "id": "lookup_intro",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "Enter the registered contact number to review reservation details and current status."
+          }
+        ]
+      }
+    ],
+    "main_content": [
+      {
+        "id": "lookup_centerpiece",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-page-grid cs-lookup-shell"
+        },
+        "children": [
+          {
+            "id": "reservation_lookup_form",
+            "type": "basic",
+            "name": "Form",
+            "props": {
+              "id": "reservation_lookup_form",
+              "className": "cs-panel cs-form-grid"
+            },
+            "actions": [
+              {
+                "type": "submit",
+                "actionRef": "submit_lookup"
+              }
+            ],
+            "children": [
+              {
+                "type": "basic",
+                "name": "H2",
+                "props": {
+                  "className": "cs-block-title"
+                },
+                "text": "Lookup Form"
               },
-              "actions": [
-                {
-                  "type": "click",
-                  "actionRef": "go_to_reserve"
+              {
+                "type": "basic",
+                "name": "Input",
+                "props": {
+                  "name": "customer_phone",
+                  "type": "text",
+                  "value": "{{query.customer_phone ? query.customer_phone : ''}}",
+                  "placeholder": "Contact Number",
+                  "className": "cs-input"
                 }
-              ],
-              "children": [
-                {
-                  "type": "basic",
-                  "name": "Span",
-                  "text": "Go To Reserve"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
+              }
+            ]
+          },
+          {
+            "id": "reservation_status_card",
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "cs-panel cs-summary-panel"
+            },
+            "children": [
+              {
+                "type": "basic",
+                "name": "H2",
+                "props": {
+                  "className": "cs-block-title"
+                },
+                "text": "Reservation Status"
+              },
+              {
+                "type": "basic",
+                "name": "P",
+                "props": {
+                  "className": "cs-summary-line"
+                },
+                "text": "Reservation ID: {{reservation.lookup && reservation.lookup.reservationNumber ? reservation.lookup.reservationNumber : ''}}"
+              },
+              {
+                "type": "basic",
+                "name": "P",
+                "props": {
+                  "className": "cs-status-pill"
+                },
+                "text": "{{reservation.lookup && reservation.lookup.state ? reservation.lookup.state : 'pending'}}"
+              },
+              {
+                "type": "basic",
+                "name": "P",
+                "props": {
+                  "className": "cs-summary-line"
+                },
+                "text": "Type: {{reservation.lookup && reservation.lookup.typeName ? reservation.lookup.typeName : ''}}"
+              },
+              {
+                "type": "basic",
+                "name": "P",
+                "props": {
+                  "className": "cs-summary-line"
+                },
+                "text": "Branch: {{reservation.lookup && reservation.lookup.branchName ? reservation.lookup.branchName : ''}}"
+              },
+              {
+                "type": "basic",
+                "name": "P",
+                "props": {
+                  "className": "cs-summary-line"
+                },
+                "text": "Date: {{reservation.lookup && reservation.lookup.date ? reservation.lookup.date : ''}}"
+              },
+              {
+                "type": "basic",
+                "name": "P",
+                "props": {
+                  "className": "cs-summary-line"
+                },
+                "text": "Time: {{reservation.lookup && reservation.lookup.slotLabel ? reservation.lookup.slotLabel : ''}}"
+              }
+            ]
+          },
+          {
+            "id": "action_bar",
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "cs-panel"
+            },
+            "children": [
+              {
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                  "className": "cs-inline-actions"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Button",
+                    "props": {
+                      "type": "submit",
+                      "form": "reservation_lookup_form",
+                      "className": "cs-primary-button"
+                    },
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Span",
+                        "text": "Submit Lookup"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Button",
+                    "props": {
+                      "type": "button",
+                      "className": "cs-secondary-button"
+                    },
+                    "actions": [
+                      {
+                        "type": "click",
+                        "actionRef": "go_to_reserve"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Span",
+                        "text": "Go To Reserve"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "side_content": [
+      {
+        "id": "verification_status_box",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "H2",
+            "props": {
+              "className": "cs-block-title"
+            },
+            "text": "Current Status"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-status-pill"
+            },
+            "text": "{{reservation.lookup && reservation.lookup.state ? reservation.lookup.state : (reservation.verification && reservation.verification.state ? reservation.verification.state : '')}}"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "Contact: {{query.customer_phone ? query.customer_phone : ''}}"
+          }
+        ]
+      }
+    ],
+    "footer_notice": [
+      {
+        "id": "lookup_notice",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-page-copy"
+            },
+            "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.branchNotice ? _global.consultationStudioBrand.branchNotice : ''}}"
+          }
+        ]
+      }
+    ]
+  }
 }

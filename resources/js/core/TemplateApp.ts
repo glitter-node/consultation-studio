@@ -226,6 +226,37 @@ declare global {
     }
 }
 
+function hasCurrentUserIdentity(value: unknown): value is Record<string, unknown> {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+        return false;
+    }
+
+    const candidate = value as Record<string, unknown>;
+
+    return Boolean(
+        (typeof candidate.uuid === 'string' && candidate.uuid.trim() !== '') ||
+        (typeof candidate.email === 'string' && candidate.email.trim() !== '') ||
+        (candidate.id !== undefined && candidate.id !== null && candidate.id !== '')
+    );
+}
+
+export function normalizeCurrentUser(value: unknown, source: string = 'unknown'): Record<string, unknown> | null {
+    const normalized = hasCurrentUserIdentity(value) ? value : null;
+    logger.log(`[auth] normalizeCurrentUser(${source})`, { raw: value, normalized });
+    return normalized;
+}
+
+export function resolveCurrentUserFromAuthState(state?: { user?: unknown } | null): Record<string, unknown> | null {
+    return normalizeCurrentUser(state?.user ?? null, 'authStateChange');
+}
+
+export function normalizeInitOptionData(data: unknown): unknown {
+    if (data !== null && typeof data === 'object' && Object.prototype.hasOwnProperty.call(data, 'data')) {
+        return (data as { data?: unknown }).data;
+    }
+
+    return data;
+}
 export class TemplateApp {
     private router: Router | null = null;
     private layoutLoader: LayoutLoader | null = null;
@@ -284,7 +315,10 @@ export class TemplateApp {
         // 전역 상태 초기화
         this.globalState = {
             sidebarOpen: false,
+            currentUser: null,
         };
+
+        logger.log('[auth] app boot currentUser snapshot:', this.globalState.currentUser);
 
         // window.G7Config에서 초기 설정값 로드
         this.loadG7Config();
@@ -563,10 +597,12 @@ export class TemplateApp {
             // 2. AuthManager 이벤트 핸들러 등록
             authManager.on('logout', () => {
                 logger.log('User logged out');
+                this.setGlobalState({ currentUser: null });
             });
 
             authManager.on('authStateChange', (state) => {
                 logger.log('Auth state changed:', state);
+                this.setGlobalState({ currentUser: resolveCurrentUserFromAuthState(state) });
             });
 
             logger.log('AuthManager event handlers registered');
@@ -949,6 +985,7 @@ export class TemplateApp {
 
                 // initLocal/initGlobal/initIsolated 처리 (blocking 데이터 소스)
                 this.processInitOptions(blockingSources, blockingData, localInit, isolatedInit);
+                logger.log('[auth] currentUser after blocking init:', this.globalState.currentUser);
 
                 // fetch된 데이터 저장 (refetch 및 get용)
                 this.currentFetchedData = { ...blockingData };
@@ -1115,6 +1152,8 @@ export class TemplateApp {
             // _global을 최신 상태로 갱신 (initLocal/initGlobal/initIsolated 처리 이후)
             // _local 리셋 및 layoutInitLocal 적용이 완료된 상태에서 스냅샷해야
             // SPA 네비게이션 시 이전 페이지의 stale _local 키가 _global._local에 남지 않음
+            logger.log('[auth] route currentUser snapshot before render:', { route: route.path, currentUser: this.globalState.currentUser });
+
             initialDataContext._global = {
                 ...this.globalState,
                 // 레이아웃 경고를 _global에 주입 (베이스 레이아웃에서 LayoutWarnings 컴포넌트가 사용)
@@ -1152,7 +1191,9 @@ export class TemplateApp {
 
                 // _global 상태 반영 (dataKey="_global.xxx" 지원)
                 // initActions에서 setState target: "global"로 설정한 값들을 반영
-                initialDataContext._global = {
+                logger.log('[auth] route currentUser snapshot before render:', { route: route.path, currentUser: this.globalState.currentUser });
+
+            initialDataContext._global = {
                     ...this.globalState,
                     layoutWarnings: layoutData.warnings || [],
                 };
@@ -1297,6 +1338,7 @@ export class TemplateApp {
                                 // initLocal/initGlobal 처리
                                 const singleLocalInit: Record<string, any> = {};
                                 this.processInitOptions([source], { [source.id]: result.data }, singleLocalInit);
+                                logger.log('[auth] currentUser after progressive init:', this.globalState.currentUser);
 
                                 // 캐시 무효화
                                 const state = getState();
@@ -1419,12 +1461,16 @@ export class TemplateApp {
 
         dataSources.forEach((source: any) => {
             const data = fetchedData[source.id];
-            if (!data) {
+            if (data === undefined) {
                 return;
             }
 
-            // API 응답에서 실제 데이터 추출 (data.data 또는 data 자체)
-            const actualData = data.data ?? data;
+            // API envelope({ success, data })가 있으면 data 필드만 사용하고, guest null도 그대로 유지
+            const actualData = normalizeInitOptionData(data);
+
+            if (source.id === 'current_user') {
+                logger.log('[auth] current_user data source response:', { raw: data, actualData });
+            }
 
             // initLocal 처리: _local[key]에 데이터 복사 (깊은 병합)
             // 레이아웃 레벨 initLocal 기본값이 있으면 유지하고, 데이터소스 값과 병합
@@ -1581,10 +1627,14 @@ export class TemplateApp {
                             // 레이아웃 레벨 initGlobal 기본값과 깊은 병합
                             const existingValue = this.globalState[item];
                             if (existingValue !== undefined && typeof existingValue === 'object' && typeof actualData === 'object') {
-                                this.globalState[item] = this.deepMerge(existingValue, actualData);
+                                this.globalState[item] = item === 'currentUser'
+                                    ? normalizeCurrentUser(this.deepMerge(existingValue, actualData), `initGlobal:${source.id}:${item}:merged`)
+                                    : this.deepMerge(existingValue, actualData);
                                 logger.log(`initGlobal (merged): ${source.id}.data -> _global.${item}`);
                             } else {
-                                this.globalState[item] = actualData;
+                                this.globalState[item] = item === 'currentUser'
+                                    ? normalizeCurrentUser(actualData, `initGlobal:${source.id}:${item}`)
+                                    : actualData;
                                 logger.log(`initGlobal: ${source.id}.data -> _global.${item}`);
                             }
                         } else if (typeof item === 'object' && item.key) {
@@ -1595,10 +1645,14 @@ export class TemplateApp {
                             // 레이아웃 레벨 initGlobal 기본값과 깊은 병합
                             const existingValue = this.globalState[key];
                             if (existingValue !== undefined && typeof existingValue === 'object' && typeof targetData === 'object') {
-                                this.globalState[key] = this.deepMerge(existingValue, targetData);
+                                this.globalState[key] = key === 'currentUser'
+                                    ? normalizeCurrentUser(this.deepMerge(existingValue, targetData), `initGlobal:${source.id}:${key}:merged`)
+                                    : this.deepMerge(existingValue, targetData);
                                 logger.log(`initGlobal (merged): ${source.id}.data${path ? '.' + path : ''} -> _global.${key}`);
                             } else {
-                                this.globalState[key] = targetData;
+                                this.globalState[key] = key === 'currentUser'
+                                    ? normalizeCurrentUser(targetData, `initGlobal:${source.id}:${key}`)
+                                    : targetData;
                                 logger.log(`initGlobal: ${source.id}.data${path ? '.' + path : ''} -> _global.${key}`);
                             }
                         }
@@ -2929,6 +2983,10 @@ export class TemplateApp {
                 ...this.globalState,
                 ...updates,
             };
+        }
+
+        if (Object.prototype.hasOwnProperty.call(this.globalState, 'currentUser')) {
+            this.globalState.currentUser = normalizeCurrentUser(this.globalState.currentUser, 'setGlobalState');
         }
 
         logger.log('Global state updated:', this.globalState);

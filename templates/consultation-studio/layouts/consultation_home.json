@@ -1,55 +1,19 @@
 {
   "version": "1.0.0",
   "layout_name": "consultation_home",
+  "extends": "_consultation_public_base",
   "permissions": [],
-  "data_sources": [
-    {
-      "id": "reservation",
-      "type": "api",
-      "endpoint": "/api/modules/consultation-reservation/context",
-      "method": "GET",
-      "auto_fetch": true,
-      "loading_strategy": "progressive",
-      "fallback": {
-        "consultation_types": [
-          {
-            "id": 1,
-            "name": "Initial Consultation",
-            "description": "A first-time intake session."
-          },
-          {
-            "id": 2,
-            "name": "Follow-up Session",
-            "description": "A progress review with an advisor."
-          }
-        ],
-        "branches": [
-          {
-            "id": 1,
-            "name": "Central Studio"
-          },
-          {
-            "id": 2,
-            "name": "Riverfront Studio"
-          }
-        ],
-        "available_dates": [],
-        "available_slots": [],
-        "summary": {
-          "headline": "Reserve a consultation in a guided four-step flow."
-        },
-        "lookup": {}
-      }
-    }
-  ],
+  "meta": {
+    "title": "Consultation Portal"
+  },
   "slots": {
-    "content": [
+    "hero": [
       {
-        "id": "progress_header",
+        "id": "home_hero",
         "type": "basic",
         "name": "Div",
         "props": {
-          "className": "cs-panel"
+          "className": "cs-panel cs-home-hero"
         },
         "children": [
           {
@@ -58,7 +22,7 @@
             "props": {
               "className": "cs-step-label"
             },
-            "text": "Step 1 of 4"
+            "text": "Consultation Portal"
           },
           {
             "type": "basic",
@@ -66,123 +30,144 @@
             "props": {
               "className": "cs-page-title"
             },
-            "text": "Consultation Reservation"
-          },
+            "text": "Educational Consultation Reservation"
+          }
+        ]
+      }
+    ],
+    "page_intro": [
+      {
+        "id": "home_intro",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
           {
             "type": "basic",
             "name": "P",
             "props": {
               "className": "cs-page-copy"
             },
-            "text": "{{reservation.summary && reservation.summary.headline ? reservation.summary.headline : 'Reserve a consultation in a guided four-step flow.'}}"
+            "text": "Plan a guided reservation flow for admissions consultation, verify your contact information, and review your reservation status from one formal portal."
           }
         ]
-      },
+      }
+    ],
+    "main_content": [
       {
-        "id": "consultation_type_selector",
+        "id": "home_overview_cards",
         "type": "basic",
         "name": "Div",
         "props": {
-          "className": "cs-panel"
+          "className": "cs-card-list"
         },
         "children": [
           {
             "type": "basic",
-            "name": "H2",
-            "props": {
-              "className": "cs-block-title"
-            },
-            "text": "Consultation Types"
-          },
-          {
-            "type": "basic",
             "name": "Div",
-            "iteration": {
-              "source": "{{reservation.consultation_types ?? []}}",
-              "item_var": "item"
-            },
             "props": {
-              "className": "cs-card-list"
+              "className": "cs-panel"
             },
             "children": [
               {
                 "type": "basic",
-                "name": "Div",
+                "name": "H2",
                 "props": {
-                  "className": "cs-option-card"
+                  "className": "cs-block-title"
                 },
+                "text": "Reserve"
+              },
+              {
+                "type": "basic",
+                "name": "P",
+                "props": {
+                  "className": "cs-page-copy"
+                },
+                "text": "Choose a consultation service, select a date, and confirm your time slot."
+              },
+              {
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "type": "button",
+                  "className": "cs-primary-button"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/consultation/reserve"
+                    }
+                  }
+                ],
                 "children": [
                   {
                     "type": "basic",
-                    "name": "H3",
-                    "props": {
-                      "className": "cs-option-title"
-                    },
-                    "text": "{{item.name ?? ''}}"
-                  },
+                    "name": "Span",
+                    "text": "Start Reservation"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "cs-panel"
+            },
+            "children": [
+              {
+                "type": "basic",
+                "name": "H2",
+                "props": {
+                  "className": "cs-block-title"
+                },
+                "text": "Lookup"
+              },
+              {
+                "type": "basic",
+                "name": "P",
+                "props": {
+                  "className": "cs-page-copy"
+                },
+                "text": "Review the current state of an existing reservation by using your registered contact number."
+              },
+              {
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "type": "button",
+                  "className": "cs-secondary-button"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/consultation/lookup"
+                    }
+                  }
+                ],
+                "children": [
                   {
                     "type": "basic",
-                    "name": "P",
-                    "props": {
-                      "className": "cs-option-copy"
-                    },
-                    "text": "{{item.description ?? ''}}"
+                    "name": "Span",
+                    "text": "Lookup Reservation"
                   }
                 ]
               }
             ]
           }
         ]
-      },
+      }
+    ],
+    "side_content": [
       {
-        "id": "branch_selector",
-        "type": "basic",
-        "name": "Div",
-        "props": {
-          "className": "cs-panel"
-        },
-        "children": [
-          {
-            "type": "basic",
-            "name": "H2",
-            "props": {
-              "className": "cs-block-title"
-            },
-            "text": "Branches"
-          },
-          {
-            "type": "basic",
-            "name": "P",
-            "props": {
-              "className": "cs-block-note"
-            },
-            "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.branchNotice ? _global.consultationStudioBrand.branchNotice : ''}}"
-          },
-          {
-            "type": "basic",
-            "name": "Div",
-            "iteration": {
-              "source": "{{reservation.branches ?? []}}",
-              "item_var": "item"
-            },
-            "props": {
-              "className": "cs-chip-list"
-            },
-            "children": [
-              {
-                "type": "basic",
-                "name": "Span",
-                "props": {
-                  "className": "cs-chip"
-                },
-                "text": "{{item.name ?? ''}}"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "reservation_summary",
+        "id": "home_process_summary",
         "type": "basic",
         "name": "Div",
         "props": {
@@ -195,39 +180,59 @@
             "props": {
               "className": "cs-block-title"
             },
-            "text": "What to Expect"
+            "text": "Portal Flow"
           },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "1. Select a consultation service"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "2. Confirm date and time"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "3. Verify your email"
+          },
+          {
+            "type": "basic",
+            "name": "P",
+            "props": {
+              "className": "cs-summary-line"
+            },
+            "text": "4. Review or lookup your reservation"
+          }
+        ]
+      }
+    ],
+    "footer_notice": [
+      {
+        "id": "home_notice",
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "cs-panel"
+        },
+        "children": [
           {
             "type": "basic",
             "name": "P",
             "props": {
               "className": "cs-page-copy"
             },
-            "text": "Choose a consultation type, select a branch and slot, verify your email, and review the final summary."
-          },
-          {
-            "type": "basic",
-            "name": "Button",
-            "props": {
-              "type": "button",
-              "className": "cs-primary-button"
-            },
-            "actions": [
-              {
-                "type": "click",
-                "handler": "navigate",
-                "params": {
-                  "path": "/consultation/reserve"
-                }
-              }
-            ],
-            "children": [
-              {
-                "type": "basic",
-                "name": "Span",
-                "text": "Start Reservation"
-              }
-            ]
+            "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.branchNotice ? _global.consultationStudioBrand.branchNotice : ''}}"
           }
         ]
       }

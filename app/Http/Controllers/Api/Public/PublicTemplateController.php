@@ -6,6 +6,7 @@ use App\Enums\ExtensionStatus;
 use App\Extension\Traits\ClearsTemplateCaches;
 use App\Http\Controllers\Api\Base\PublicBaseController;
 use App\Http\Requests\Public\Template\ServeTemplateAssetRequest;
+use App\Models\TemplateLayout;
 use App\Services\TemplateService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -194,12 +195,70 @@ class PublicTemplateController extends PublicBaseController
 
         // 캐시 버전을 응답에 포함하여 프론트엔드가 API 호출 시 사용하도록 함
         $responseData = $configData['data'];
-        $responseData['cache_version'] = ClearsTemplateCaches::getExtensionCacheVersion();
+        $responseData['cache_version'] = $this->resolveTemplateCacheVersion($identifier);
 
         return $this->success(
             __('templates.messages.config_retrieved'),
             $responseData
         );
+    }
+    private function resolveTemplateCacheVersion(string $identifier): int
+    {
+        $cacheVersion = ClearsTemplateCaches::getExtensionCacheVersion();
+        $template = $this->templateService->findByIdentifier($identifier);
+
+        $templateUpdatedAt = $template?->updated_at?->getTimestamp() ?? 0;
+        $configPath = base_path("templates/{$identifier}/template.json");
+        $configFileVersion = file_exists($configPath) ? (filemtime($configPath) ?: 0) : 0;
+        $routesPath = base_path("templates/{$identifier}/routes.json");
+        $routesFileVersion = file_exists($routesPath) ? (filemtime($routesPath) ?: 0) : 0;
+        $layoutFilesVersion = $this->resolveTemplateLayoutFilesVersion($identifier);
+        $layoutUpdatedAt = 0;
+
+        if ($template) {
+            $latestLayoutUpdate = TemplateLayout::where('template_id', $template->id)->max('updated_at');
+            if ($latestLayoutUpdate instanceof \DateTimeInterface) {
+                $layoutUpdatedAt = $latestLayoutUpdate->getTimestamp();
+            } elseif (is_string($latestLayoutUpdate) && $latestLayoutUpdate !== '') {
+                $layoutUpdatedAt = strtotime($latestLayoutUpdate) ?: 0;
+            }
+        }
+
+        return max(
+            $cacheVersion,
+            $templateUpdatedAt,
+            $configFileVersion,
+            $routesFileVersion,
+            $layoutFilesVersion,
+            $layoutUpdatedAt
+        );
+    }
+
+    private function resolveTemplateLayoutFilesVersion(string $identifier): int
+    {
+        $layoutsPath = base_path("templates/{$identifier}/layouts");
+        if (! is_dir($layoutsPath)) {
+            return 0;
+        }
+
+        $latestVersion = 0;
+        $iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($layoutsPath, \FilesystemIterator::SKIP_DOTS)
+        );
+
+        foreach ($iterator as $file) {
+            if (! $file instanceof \SplFileInfo || ! $file->isFile()) {
+                continue;
+            }
+
+            if (strtolower($file->getExtension()) !== 'json') {
+                continue;
+            }
+
+            $latestVersion = max($latestVersion, $file->getMTime());
+        }
+
+        return $latestVersion;
     }
 
     /**

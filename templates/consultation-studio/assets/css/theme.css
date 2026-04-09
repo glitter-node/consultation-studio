@@ -1,56 +1,1084 @@
 :root {
-  --cs-brand-color: #0f766e;
-  --cs-brand-color-soft: #d9f3ef;
-  --cs-ink: #102127;
-  --cs-muted: #5a6b73;
-  --cs-border: #d5dde1;
+  --cs-brand-color: #123c66;
+  --cs-brand-color-soft: #e3edf8;
+  --cs-brand-color-strong: #0c2c4b;
+  --cs-accent-color: #8b6f3d;
+  --cs-accent-color-soft: #f3ecdf;
+  --cs-ink: #14283b;
+  --cs-ink-strong: #0d1b2a;
+  --cs-muted: #607182;
+  --cs-muted-strong: #445666;
+  --cs-border: #d4dce4;
+  --cs-border-strong: #b5c1cd;
   --cs-surface: #ffffff;
-  --cs-surface-alt: #f4f7f8;
+  --cs-surface-alt: #f4f7fb;
+  --cs-surface-muted: #edf2f7;
+  --cs-surface-raised: #fbfdff;
+  --cs-shell-background-top: #f6f9fc;
+  --cs-shell-background-bottom: #e9eff6;
+  --cs-shell-overlay: rgba(18, 60, 102, 0.06);
+  --cs-success-bg: #e5f4ea;
+  --cs-success-text: #1f6a42;
+  --cs-warning-bg: #fbf1dd;
+  --cs-warning-text: #946221;
+  --cs-danger-bg: #f9e3e5;
+  --cs-danger-text: #a23b47;
+  --cs-info-bg: #e7eef9;
+  --cs-info-text: #234e83;
+  --cs-font-family-base: "Noto Sans KR", "Pretendard", "Segoe UI", sans-serif;
+  --cs-font-family-heading: "Noto Serif KR", "Times New Roman", serif;
+  --cs-font-size-xs: 0.75rem;
+  --cs-font-size-sm: 0.875rem;
+  --cs-font-size-md: 1rem;
+  --cs-font-size-lg: 1.125rem;
+  --cs-font-size-xl: 1.25rem;
+  --cs-font-size-2xl: 1.75rem;
+  --cs-font-size-3xl: 2.375rem;
+  --cs-line-height-tight: 1.2;
+  --cs-line-height-base: 1.6;
+  --cs-line-height-loose: 1.75;
+  --cs-font-weight-regular: 400;
+  --cs-font-weight-medium: 500;
+  --cs-font-weight-semibold: 600;
+  --cs-font-weight-bold: 700;
+  --cs-space-1: 0.25rem;
+  --cs-space-2: 0.5rem;
+  --cs-space-3: 0.75rem;
+  --cs-space-4: 1rem;
+  --cs-space-5: 1.25rem;
+  --cs-space-6: 1.5rem;
+  --cs-space-7: 1.75rem;
+  --cs-space-8: 2rem;
+  --cs-space-10: 2.5rem;
+  --cs-space-12: 3rem;
+  --cs-space-16: 4rem;
+  --cs-radius-sm: 0.75rem;
+  --cs-radius-md: 1rem;
+  --cs-radius-lg: 1.25rem;
+  --cs-radius-xl: 1.75rem;
+  --cs-radius-pill: 999px;
+  --cs-shadow-xs: 0 6px 16px rgba(13, 27, 42, 0.04);
+  --cs-shadow-sm: 0 12px 28px rgba(13, 27, 42, 0.06);
+  --cs-shadow-md: 0 20px 48px rgba(13, 27, 42, 0.1);
+  --cs-shadow-lg: 0 28px 72px rgba(13, 27, 42, 0.14);
+  --cs-width-shell: 76rem;
+  --cs-width-page-main: minmax(0, 1.65fr);
+  --cs-width-page-aside: minmax(18rem, 0.9fr);
+  --cs-width-card-readable: 42rem;
+  --cs-width-lookup-card: 46rem;
+  --cs-public-shell-max-width: var(--cs-width-shell);
+  --cs-shell-padding-x: var(--cs-space-5);
+  --cs-shell-padding-y: var(--cs-space-8);
+  --cs-shell-gap: var(--cs-space-6);
+  --cs-hero-padding: var(--cs-space-8);
+  --cs-hero-gap: var(--cs-space-4);
+  --cs-page-intro-padding: var(--cs-space-6);
+  --cs-page-grid-gap: var(--cs-space-5);
+  --cs-page-aside-gap: var(--cs-space-5);
+  --cs-card-padding: var(--cs-space-6);
+  --cs-card-gap: var(--cs-space-4);
+  --cs-card-radius: var(--cs-radius-xl);
+  --cs-card-shadow: var(--cs-shadow-sm);
+  --cs-summary-background: linear-gradient(180deg, #ffffff 0%, #f4f8fc 100%);
+  --cs-summary-shadow: var(--cs-shadow-md);
+  --cs-summary-sticky-top: var(--cs-space-8);
+  --cs-notice-background: linear-gradient(135deg, #f5f1e7 0%, #edf3fb 100%);
+  --cs-notice-border: rgba(139, 111, 61, 0.2);
+  --cs-control-height: 3.25rem;
+  --cs-control-padding-x: 1rem;
+  --cs-control-radius: var(--cs-radius-md);
+  --cs-control-border: var(--cs-border);
+  --cs-control-border-focus: var(--cs-brand-color);
+  --cs-control-background: #ffffff;
+  --cs-control-shadow-focus: 0 0 0 4px rgba(18, 60, 102, 0.12);
+  --cs-badge-radius: var(--cs-radius-pill);
+  --cs-badge-padding-y: 0.5rem;
+  --cs-badge-padding-x: 0.875rem;
+  --cs-badge-background: var(--cs-brand-color-soft);
+  --cs-badge-color: var(--cs-brand-color);
+  --cs-button-height: 3rem;
+  --cs-button-padding-x: 1rem;
+  --cs-button-radius: var(--cs-radius-md);
+  --cs-button-shadow: var(--cs-shadow-xs);
+  --cs-button-shadow-hover: var(--cs-shadow-sm);
+  --cs-button-primary-background: var(--cs-brand-color);
+  --cs-button-primary-background-hover: var(--cs-brand-color-strong);
+  --cs-button-primary-color: #ffffff;
+  --cs-button-secondary-background: var(--cs-surface-alt);
+  --cs-button-secondary-background-hover: #e7edf4;
+  --cs-button-secondary-color: var(--cs-ink);
+  --cs-button-secondary-border: var(--cs-border);
+  --cs-admin-sidebar-background: #132a30;
+  --cs-admin-sidebar-link-background: rgba(255, 255, 255, 0.06);
+  --cs-admin-sidebar-link-border: rgba(255, 255, 255, 0.16);
 }
 
 .cs-theme {
-  background: linear-gradient(180deg, #f6fbfa 0%, #edf4f6 100%);
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(18, 60, 102, 0.08) 0, rgba(18, 60, 102, 0) 28%),
+    linear-gradient(180deg, var(--cs-shell-background-top) 0%, var(--cs-shell-background-bottom) 100%);
   color: var(--cs-ink);
-  font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+  font-family: var(--cs-font-family-base);
+  font-size: var(--cs-font-size-md);
+  line-height: var(--cs-line-height-base);
+}
+
+.cs-theme button,
+.cs-theme input,
+.cs-theme textarea {
+  font: inherit;
 }
 
 .cs-panel,
 .cs-admin-panel {
+  display: grid;
+  gap: var(--cs-card-gap);
   background: var(--cs-surface);
   border: 1px solid var(--cs-border);
-  border-radius: 20px;
-  box-shadow: 0 16px 40px rgba(16, 33, 39, 0.06);
+  border-radius: var(--cs-card-radius);
+  box-shadow: var(--cs-card-shadow);
 }
 
-.cs-primary-button,
-.cs-secondary-button,
-.cs-nav-button,
-.cs-admin-link,
+.cs-panel {
+  padding: var(--cs-card-padding);
+}
+
+.cs-admin-panel {
+  padding: var(--cs-card-padding);
+}
+
+.cs-page-title,
+.cs-block-title,
+.cs-option-title {
+  margin: 0;
+  color: var(--cs-ink-strong);
+}
+
+.cs-page-title {
+  font-family: var(--cs-font-family-heading);
+  font-size: clamp(var(--cs-font-size-2xl), 3vw, var(--cs-font-size-3xl));
+  line-height: var(--cs-line-height-tight);
+  font-weight: var(--cs-font-weight-semibold);
+  letter-spacing: -0.03em;
+}
+
+.cs-block-title,
+.cs-option-title {
+  font-size: var(--cs-font-size-xl);
+  line-height: 1.35;
+  font-weight: var(--cs-font-weight-semibold);
+}
+
+.cs-step-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cs-space-2);
+  width: fit-content;
+  margin: 0;
+  color: var(--cs-brand-color);
+  font-size: var(--cs-font-size-xs);
+  font-weight: var(--cs-font-weight-bold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.cs-contact-text,
+.cs-block-note,
+.cs-page-copy,
+.cs-option-copy,
+.cs-footer-note,
+.cs-summary-line {
+  color: var(--cs-muted);
+  line-height: var(--cs-line-height-loose);
+}
+
+.cs-page-copy,
+.cs-summary-line,
+.cs-footer-note {
+  font-size: var(--cs-font-size-md);
+}
+
+.cs-public-shell {
+  position: relative;
+  max-width: var(--cs-public-shell-max-width);
+  margin: 0 auto;
+  padding: var(--cs-shell-padding-y) var(--cs-shell-padding-x) var(--cs-space-12);
+}
+
+.cs-public-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--cs-space-4);
+  margin-bottom: var(--cs-space-6);
+}
+
+.cs-brand-lockup {
+  display: grid;
+  gap: var(--cs-space-2);
+}
+
+.cs-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.6875rem 1rem;
+  border-radius: var(--cs-radius-pill);
+  background: var(--cs-brand-color-soft);
+  color: var(--cs-brand-color);
+  font-size: var(--cs-font-size-sm);
+  font-weight: var(--cs-font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cs-public-nav,
+.cs-inline-actions {
+  display: flex;
+  gap: var(--cs-space-3);
+  flex-wrap: wrap;
+}
+
+.cs-page-frame,
+.cs-page-grid,
+.cs-card-list,
+.cs-chip-list,
+.cs-slot-grid,
+.cs-form-grid {
+  display: grid;
+  gap: var(--cs-page-grid-gap);
+}
+
+.cs-page-frame {
+  gap: var(--cs-shell-gap);
+}
+
+.cs-page-hero,
+.cs-page-intro,
+.cs-page-notice {
+  display: grid;
+  gap: var(--cs-page-grid-gap);
+}
+
+.cs-page-body {
+  display: grid;
+  grid-template-columns: var(--cs-width-page-main) var(--cs-width-page-aside);
+  gap: var(--cs-page-grid-gap);
+  align-items: start;
+}
+
+.cs-page-main,
+.cs-page-aside {
+  display: grid;
+  gap: var(--cs-page-grid-gap);
+}
+
+.cs-page-hero > .cs-panel,
+.cs-home-hero {
+  padding: var(--cs-hero-padding);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(243, 247, 252, 0.96) 100%);
+  box-shadow: var(--cs-shadow-md);
+}
+
+.cs-page-intro > .cs-panel {
+  padding: var(--cs-page-intro-padding) var(--cs-card-padding);
+}
+
+.cs-card-list {
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.cs-chip-list {
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+
+.cs-slot-grid {
+  grid-template-columns: repeat(auto-fit, minmax(7.25rem, 1fr));
+}
+
+.cs-form-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cs-option-card,
 .cs-chip,
 .cs-slot-button,
-.cs-option-card {
-  transition: all 0.2s ease;
+.cs-nav-button,
+.cs-primary-button,
+.cs-secondary-button,
+.cs-admin-link {
+  min-height: var(--cs-button-height);
+  border-radius: var(--cs-button-radius);
+  padding: 0.75rem var(--cs-button-padding-x);
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.cs-nav-button,
+.cs-secondary-button,
+.cs-chip,
+.cs-slot-button,
+.cs-option-card,
+.cs-admin-link {
+  border: 1px solid var(--cs-button-secondary-border);
+  background: var(--cs-button-secondary-background);
+  color: var(--cs-button-secondary-color);
+  box-shadow: var(--cs-button-shadow);
 }
 
 .cs-primary-button {
-  background: var(--cs-brand-color);
-  color: #ffffff;
-  border: 0;
+  border: 1px solid var(--cs-button-primary-background);
+  background: var(--cs-button-primary-background);
+  color: var(--cs-button-primary-color);
+  box-shadow: var(--cs-button-shadow);
 }
 
-.cs-secondary-button {
-  background: var(--cs-surface-alt);
+.cs-nav-button:hover,
+.cs-secondary-button:hover,
+.cs-chip:hover,
+.cs-slot-button:hover,
+.cs-option-card:hover,
+.cs-admin-link:hover,
+.cs-primary-button:hover {
+  box-shadow: var(--cs-button-shadow-hover);
+  transform: translateY(-1px);
+}
+
+.cs-nav-button-primary,
+.cs-primary-button:hover {
+  background: var(--cs-button-primary-background-hover);
+  border-color: var(--cs-button-primary-background-hover);
+  color: var(--cs-button-primary-color);
+}
+
+.cs-secondary-button:hover,
+.cs-nav-button:hover,
+.cs-chip:hover,
+.cs-slot-button-available:hover,
+.cs-option-card:hover,
+.cs-admin-link:hover {
+  background: var(--cs-button-secondary-background-hover);
+}
+
+.cs-option-card,
+.cs-chip,
+.cs-slot-button {
+  text-align: left;
+}
+
+.cs-option-card-active,
+.cs-chip-active,
+.cs-slot-button-selected {
+  border-color: var(--cs-brand-color);
+  background: var(--cs-brand-color-soft);
+  color: var(--cs-brand-color-strong);
+}
+
+.cs-slot-button-booked {
+  background: var(--cs-warning-bg);
+  border-color: color-mix(in srgb, var(--cs-warning-text) 30%, white);
+  color: var(--cs-warning-text);
+}
+
+.cs-slot-button-closed,
+.cs-slot-button-expired {
+  background: var(--cs-surface-muted);
+  border-color: var(--cs-border);
+  color: var(--cs-muted);
+}
+
+.cs-input,
+.cs-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--cs-control-border);
+  background: var(--cs-control-background);
   color: var(--cs-ink);
-  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-control-radius);
+  padding: 0.875rem var(--cs-control-padding-x);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.cs-input {
+  min-height: var(--cs-control-height);
+}
+
+.cs-textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.cs-input:focus,
+.cs-textarea:focus {
+  border-color: var(--cs-control-border-focus);
+  box-shadow: var(--cs-control-shadow-focus);
+}
+
+.cs-summary-panel {
+  background: var(--cs-summary-background);
+  box-shadow: var(--cs-summary-shadow);
+}
+
+.cs-sticky-stack {
+  position: sticky;
+  top: var(--cs-summary-sticky-top);
+}
+
+.cs-page-notice > .cs-panel,
+.cs-page-notice .cs-panel,
+.cs-notice-card {
+  background: var(--cs-notice-background);
+  border-color: var(--cs-notice-border);
 }
 
 .cs-status-pill {
   display: inline-flex;
   align-items: center;
+  gap: var(--cs-space-2);
   width: fit-content;
-  padding: 8px 14px;
+  padding: var(--cs-badge-padding-y) var(--cs-badge-padding-x);
+  border-radius: var(--cs-badge-radius);
+  background: var(--cs-badge-background);
+  color: var(--cs-badge-color);
+  font-size: var(--cs-font-size-sm);
+  font-weight: var(--cs-font-weight-bold);
+}
+
+.cs-status-pill[data-state='verified'],
+.cs-status-pill.is-success {
+  background: var(--cs-success-bg);
+  color: var(--cs-success-text);
+}
+
+.cs-status-pill[data-state='pending'],
+.cs-status-pill[data-state='sent'],
+.cs-status-pill.is-info {
+  background: var(--cs-info-bg);
+  color: var(--cs-info-text);
+}
+
+.cs-status-pill[data-state='expired'],
+.cs-status-pill[data-state='booked'],
+.cs-status-pill.is-warning {
+  background: var(--cs-warning-bg);
+  color: var(--cs-warning-text);
+}
+
+.cs-status-pill[data-state='failed'],
+.cs-status-pill[data-state='cancelled'],
+.cs-status-pill.is-danger {
+  background: var(--cs-danger-bg);
+  color: var(--cs-danger-text);
+}
+
+.cs-public-footer {
+  margin-top: var(--cs-space-8);
+  padding: var(--cs-space-2) var(--cs-space-1);
+}
+
+.cs-admin-sidebar {
+  background: var(--cs-admin-sidebar-background);
+}
+
+.cs-admin-link {
+  background: var(--cs-admin-sidebar-link-background);
+  border-color: var(--cs-admin-sidebar-link-border);
+  color: #ffffff;
+}
+
+@media (max-width: 960px) {
+  .cs-page-body,
+  .cs-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-sticky-stack {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .cs-public-shell {
+    padding: var(--cs-space-6) var(--cs-space-4) var(--cs-space-10);
+  }
+
+  .cs-public-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cs-page-title {
+    font-size: clamp(1.75rem, 7vw, 2.25rem);
+  }
+
+  .cs-nav-button,
+  .cs-primary-button,
+  .cs-secondary-button,
+  .cs-chip,
+  .cs-slot-button,
+  .cs-option-card {
+    width: 100%;
+  }
+}
+
+:root {
+  --cs-space-9: 2.25rem;
+  --cs-width-shell: 78rem;
+  --cs-shell-padding-y: var(--cs-space-9);
+  --cs-shell-gap: var(--cs-space-7);
+  --cs-hero-padding: var(--cs-space-9);
+  --cs-page-intro-padding: var(--cs-space-7);
+  --cs-page-grid-gap: var(--cs-space-6);
+  --cs-card-padding: var(--cs-space-7);
+  --cs-card-shadow: 0 18px 48px rgba(13, 27, 42, 0.08);
+}
+
+.cs-surface-frame,
+.cs-surface-footer {
+  border: 1px solid color-mix(in srgb, var(--cs-border) 82%, white);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 251, 255, 0.92) 100%);
+  box-shadow: var(--cs-shadow-sm);
+  backdrop-filter: blur(18px);
+}
+
+.cs-brand-lockup-stack {
+  gap: var(--cs-space-3);
+}
+
+.cs-page-frame-balanced {
+  align-content: start;
+}
+
+:root {
+  --cs-layer-base-shadow: 0 10px 28px rgba(13, 27, 42, 0.05);
+  --cs-layer-raised-shadow: 0 18px 44px rgba(13, 27, 42, 0.08);
+  --cs-layer-floating-shadow: 0 28px 72px rgba(13, 27, 42, 0.14);
+  --cs-heading-track: -0.032em;
+  --cs-heading-line: 1.14;
+  --cs-section-rhythm: var(--cs-space-7);
+}
+
+.cs-theme {
+  color: color-mix(in srgb, var(--cs-ink) 96%, black);
+}
+
+.cs-panel,
+.cs-admin-panel {
+  box-shadow: var(--cs-layer-raised-shadow);
+}
+
+.cs-page-title,
+.cs-block-title,
+.cs-option-title {
+  letter-spacing: var(--cs-heading-track);
+}
+
+.cs-page-title {
+  line-height: var(--cs-heading-line);
+}
+
+.cs-page-copy,
+.cs-option-copy,
+.cs-summary-line,
+.cs-footer-note {
+  line-height: 1.72;
+}
+
+:root {
+  --cs-signature-tint: linear-gradient(135deg, rgba(44, 88, 132, 0.08) 0%, rgba(44, 88, 132, 0) 62%);
+  --cs-signature-edge: linear-gradient(90deg, rgba(44, 88, 132, 0.22) 0%, rgba(44, 88, 132, 0.04) 72%, rgba(44, 88, 132, 0) 100%);
+  --cs-motion-curve: cubic-bezier(0.24, 0.9, 0.32, 1);
+  --cs-motion-fast: 180ms;
+  --cs-motion-base: 240ms;
+  --cs-motion-slow: 320ms;
+}
+
+.cs-panel,
+.cs-summary-panel,
+.cs-surface-frame,
+.cs-surface-footer {
+  position: relative;
+  overflow: clip;
+}
+
+.cs-panel::before,
+.cs-summary-panel::before,
+.cs-surface-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--cs-signature-tint);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.cs-panel::after,
+.cs-summary-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 1px;
+  background: var(--cs-signature-edge);
+  pointer-events: none;
+}
+
+:root {
+  --cs-surface-base: #f3f6fa;
+  --cs-surface-1: linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, rgba(248, 251, 255, 0.96) 100%);
+  --cs-surface-2: linear-gradient(180deg, rgba(255, 255, 255, 0.995) 0%, rgba(243, 248, 253, 0.985) 100%);
+  --cs-surface-3: radial-gradient(circle at top right, rgba(44, 88, 132, 0.12), transparent 34%), linear-gradient(180deg, rgba(255, 255, 255, 0.998) 0%, rgba(240, 246, 252, 0.99) 100%);
+  --cs-surface-flow: linear-gradient(180deg, rgba(252, 254, 255, 0.99) 0%, rgba(246, 250, 254, 0.975) 100%);
+
+  --cs-text-primary: #142334;
+  --cs-text-secondary: #43576d;
+  --cs-text-muted: #637489;
+
+  --cs-border-soft: rgba(20, 35, 52, 0.06);
+  --cs-border-default: rgba(20, 35, 52, 0.10);
+  --cs-border-strong: rgba(20, 35, 52, 0.16);
+
+  --cs-action-primary-start: #214f7b;
+  --cs-action-primary-end: #163c66;
+  --cs-action-secondary-bg: rgba(255, 255, 255, 0.88);
+  --cs-action-secondary-border: rgba(20, 35, 52, 0.14);
+  --cs-action-secondary-text: #28415b;
+  --cs-action-ghost-text: #4a6077;
+
+  --cs-shadow-surface-1: 0 8px 20px rgba(13, 27, 42, 0.045);
+  --cs-shadow-surface-2: 0 16px 36px rgba(13, 27, 42, 0.075);
+  --cs-shadow-surface-3: 0 24px 56px rgba(13, 27, 42, 0.11);
+}
+
+.cs-theme {
+  background: var(--cs-surface-base);
+  color: var(--cs-text-primary);
+}
+
+.cs-page-copy,
+.cs-option-copy,
+.cs-summary-line,
+.cs-contact-text {
+  color: var(--cs-text-secondary);
+}
+
+.cs-footer-note {
+  color: var(--cs-text-muted);
+}
+
+:root,
+[data-theme="light"] {
+  --cs-surface-base: #f3f6fa;
+  --cs-surface-1: linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, rgba(248, 251, 255, 0.96) 100%);
+  --cs-surface-2: linear-gradient(180deg, rgba(255, 255, 255, 0.995) 0%, rgba(243, 248, 253, 0.985) 100%);
+  --cs-surface-3: radial-gradient(circle at top right, rgba(44, 88, 132, 0.12), transparent 34%), linear-gradient(180deg, rgba(255, 255, 255, 0.998) 0%, rgba(240, 246, 252, 0.99) 100%);
+  --cs-surface-flow: linear-gradient(180deg, rgba(252, 254, 255, 0.99) 0%, rgba(246, 250, 254, 0.975) 100%);
+  --cs-text-primary: #142334;
+  --cs-text-secondary: #43576d;
+  --cs-text-muted: #637489;
+  --cs-border-soft: rgba(20, 35, 52, 0.06);
+  --cs-border-default: rgba(20, 35, 52, 0.10);
+  --cs-border-strong: rgba(20, 35, 52, 0.16);
+  --cs-action-primary-start: #214f7b;
+  --cs-action-primary-end: #163c66;
+  --cs-action-secondary-bg: rgba(255, 255, 255, 0.88);
+  --cs-action-secondary-border: rgba(20, 35, 52, 0.14);
+  --cs-action-secondary-text: #28415b;
+  --cs-action-ghost-text: #4a6077;
+  --cs-shadow-surface-1: 0 8px 20px rgba(13, 27, 42, 0.045);
+  --cs-shadow-surface-2: 0 16px 36px rgba(13, 27, 42, 0.075);
+  --cs-shadow-surface-3: 0 24px 56px rgba(13, 27, 42, 0.11);
+  --cs-focus-ring: 0 0 0 3px rgba(44, 88, 132, 0.12), 0 0 0 6px rgba(44, 88, 132, 0.05);
+  color-scheme: light;
+}
+
+[data-theme="dim"] {
+  --cs-surface-base: #e8edf4;
+  --cs-surface-1: linear-gradient(180deg, rgba(235, 241, 248, 0.96) 0%, rgba(225, 232, 241, 0.95) 100%);
+  --cs-surface-2: linear-gradient(180deg, rgba(240, 245, 250, 0.98) 0%, rgba(228, 236, 245, 0.97) 100%);
+  --cs-surface-3: radial-gradient(circle at top right, rgba(44, 88, 132, 0.10), transparent 36%), linear-gradient(180deg, rgba(241, 246, 251, 0.99) 0%, rgba(226, 235, 244, 0.98) 100%);
+  --cs-surface-flow: linear-gradient(180deg, rgba(238, 244, 249, 0.98) 0%, rgba(229, 236, 244, 0.97) 100%);
+  --cs-text-primary: #1d2d3f;
+  --cs-text-secondary: #526579;
+  --cs-text-muted: #6b7c90;
+  --cs-border-soft: rgba(29, 45, 63, 0.08);
+  --cs-border-default: rgba(29, 45, 63, 0.12);
+  --cs-border-strong: rgba(29, 45, 63, 0.18);
+  --cs-action-primary-start: #1e496f;
+  --cs-action-primary-end: #15375b;
+  --cs-action-secondary-bg: rgba(237, 242, 248, 0.80);
+  --cs-action-secondary-border: rgba(29, 45, 63, 0.15);
+  --cs-action-secondary-text: #2e465f;
+  --cs-action-ghost-text: #53677c;
+  --cs-shadow-surface-1: 0 6px 16px rgba(13, 27, 42, 0.05);
+  --cs-shadow-surface-2: 0 12px 28px rgba(13, 27, 42, 0.07);
+  --cs-shadow-surface-3: 0 18px 42px rgba(13, 27, 42, 0.10);
+  --cs-focus-ring: 0 0 0 3px rgba(44, 88, 132, 0.11), 0 0 0 6px rgba(44, 88, 132, 0.04);
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --cs-surface-base: #121821;
+  --cs-surface-1: linear-gradient(180deg, rgba(27, 35, 46, 0.98) 0%, rgba(23, 30, 40, 0.98) 100%);
+  --cs-surface-2: linear-gradient(180deg, rgba(33, 42, 54, 0.99) 0%, rgba(28, 36, 48, 0.99) 100%);
+  --cs-surface-3: radial-gradient(circle at top right, rgba(72, 126, 179, 0.18), transparent 38%), linear-gradient(180deg, rgba(38, 49, 63, 0.995) 0%, rgba(31, 40, 53, 0.99) 100%);
+  --cs-surface-flow: linear-gradient(180deg, rgba(30, 39, 51, 0.99) 0%, rgba(26, 34, 45, 0.99) 100%);
+  --cs-text-primary: #e7edf5;
+  --cs-text-secondary: #b3c0d0;
+  --cs-text-muted: #8a98aa;
+  --cs-border-soft: rgba(231, 237, 245, 0.08);
+  --cs-border-default: rgba(231, 237, 245, 0.12);
+  --cs-border-strong: rgba(231, 237, 245, 0.18);
+  --cs-action-primary-start: #3b6c9a;
+  --cs-action-primary-end: #254f79;
+  --cs-action-secondary-bg: rgba(34, 44, 57, 0.92);
+  --cs-action-secondary-border: rgba(231, 237, 245, 0.14);
+  --cs-action-secondary-text: #d4deea;
+  --cs-action-ghost-text: #a5b3c4;
+  --cs-shadow-surface-1: 0 0 0 1px rgba(255, 255, 255, 0.03), 0 10px 22px rgba(0, 0, 0, 0.28);
+  --cs-shadow-surface-2: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 16px 34px rgba(0, 0, 0, 0.34);
+  --cs-shadow-surface-3: 0 0 0 1px rgba(120, 160, 200, 0.06), 0 22px 48px rgba(0, 0, 0, 0.42);
+  --cs-focus-ring: 0 0 0 3px rgba(72, 126, 179, 0.18), 0 0 0 6px rgba(72, 126, 179, 0.07);
+  color-scheme: dark;
+}
+
+.cs-theme {
+  background: var(--cs-surface-base, #f3f6fa);
+  color: var(--cs-text-primary, #142334);
+}
+
+.cs-panel,
+.cs-primary-panel,
+.cs-hero-panel,
+.cs-flow-panel,
+.cs-summary-panel {
+  background: var(--cs-panel-surface, var(--cs-surface-1, linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, rgba(248, 251, 255, 0.96) 100%)));
+  color: var(--cs-panel-text, var(--cs-text-primary, #142334));
+  border-color: var(--cs-panel-border, var(--cs-border-soft, rgba(20, 35, 52, 0.06)));
+  box-shadow: var(--cs-panel-shadow, var(--cs-shadow-surface-1, 0 8px 20px rgba(13, 27, 42, 0.045)));
+}
+
+.cs-primary-panel,
+.cs-summary-panel {
+  --cs-panel-surface: var(--cs-surface-2, linear-gradient(180deg, rgba(255, 255, 255, 0.995) 0%, rgba(243, 248, 253, 0.985) 100%));
+  --cs-panel-border: var(--cs-border-default, rgba(20, 35, 52, 0.10));
+  --cs-panel-shadow: var(--cs-shadow-surface-2, 0 16px 36px rgba(13, 27, 42, 0.075));
+}
+
+.cs-hero-panel {
+  --cs-panel-surface: var(--cs-surface-3, radial-gradient(circle at top right, rgba(44, 88, 132, 0.12), transparent 34%), linear-gradient(180deg, rgba(255, 255, 255, 0.998) 0%, rgba(240, 246, 252, 0.99) 100%));
+  --cs-panel-border: var(--cs-border-default, rgba(20, 35, 52, 0.10));
+  --cs-panel-shadow: var(--cs-shadow-surface-3, 0 24px 56px rgba(13, 27, 42, 0.11));
+}
+
+.cs-flow-panel {
+  --cs-panel-surface: var(--cs-surface-flow, linear-gradient(180deg, rgba(252, 254, 255, 0.99) 0%, rgba(246, 250, 254, 0.975) 100%));
+  --cs-panel-border: var(--cs-border-default, rgba(20, 35, 52, 0.10));
+  --cs-panel-shadow: var(--cs-shadow-surface-1, 0 8px 20px rgba(13, 27, 42, 0.045));
+}
+
+.cs-text-primary { color: var(--cs-text-primary, #142334); }
+.cs-text-secondary { color: var(--cs-text-secondary, #43576d); }
+.cs-text-muted { color: var(--cs-text-muted, #637489); }
+
+.cs-primary-button {
+  color: var(--cs-action-primary-text, #ffffff);
+  background: linear-gradient(135deg, var(--cs-action-primary-start, #214f7b) 0%, var(--cs-action-primary-end, #163c66) 100%);
+  border-color: transparent;
+}
+
+.cs-secondary-button,
+.cs-theme-toggle,
+.cs-theme-toggle__option {
+  background: var(--cs-action-secondary-bg, rgba(255, 255, 255, 0.88));
+  color: var(--cs-action-secondary-text, #28415b);
+  border-color: var(--cs-action-secondary-border, rgba(20, 35, 52, 0.14));
+}
+
+.cs-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: 1px solid var(--cs-action-secondary-border, rgba(20, 35, 52, 0.14));
   border-radius: 999px;
-  background: var(--cs-brand-color-soft);
-  color: var(--cs-brand-color);
-  font-weight: 700;
+  background: var(--cs-action-secondary-bg, rgba(255, 255, 255, 0.88));
+  box-shadow: var(--cs-shadow-surface-1, 0 8px 20px rgba(13, 27, 42, 0.045));
+}
+
+.cs-theme-toggle__option {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.5rem 0.85rem;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.cs-theme-toggle__option[aria-pressed="true"] {
+  background: var(--cs-surface-2, linear-gradient(180deg, rgba(255, 255, 255, 0.995) 0%, rgba(243, 248, 253, 0.985) 100%));
+  color: var(--cs-text-primary, #142334);
+  border-color: var(--cs-border-default, rgba(20, 35, 52, 0.10));
+  box-shadow: var(--cs-shadow-surface-1, 0 8px 20px rgba(13, 27, 42, 0.045));
+}
+
+.cs-theme-toggle__option:focus-visible,
+.cs-primary-button:focus-visible,
+.cs-secondary-button:focus-visible,
+.cs-theme button:focus-visible,
+.cs-theme input:focus-visible,
+.cs-theme textarea:focus-visible,
+.cs-theme select:focus-visible {
+  outline: none;
+  box-shadow: var(--cs-focus-ring, 0 0 0 3px rgba(44, 88, 132, 0.12), 0 0 0 6px rgba(44, 88, 132, 0.05));
+}
+
+:root,
+[data-theme="light"] {
+  --cs-action-primary-text: #ffffff;
+}
+
+[data-theme="dim"] {
+  --cs-action-primary-text: #f8fbff;
+}
+
+[data-theme="dark"] {
+  --cs-action-primary-text: #f3f7fc;
+}
+
+.cs-panel {
+  --cs-panel-surface: var(--cs-surface-1);
+  --cs-panel-text: var(--cs-text-primary);
+  --cs-panel-border: var(--cs-border-soft);
+  --cs-panel-shadow: var(--cs-shadow-surface-1);
+}
+
+.cs-primary-panel,
+.cs-summary-panel,
+.cs-page-main-zone > .cs-panel,
+.cs-runtime-summary-card {
+  --cs-panel-surface: var(--cs-surface-2);
+  --cs-panel-border: var(--cs-border-default);
+  --cs-panel-shadow: var(--cs-shadow-surface-2);
+}
+
+.cs-hero-panel,
+.cs-home-hero,
+.cs-page-hero-zone > .cs-panel {
+  --cs-panel-surface: var(--cs-surface-3);
+  --cs-panel-border: var(--cs-border-default);
+  --cs-panel-shadow: var(--cs-shadow-surface-3);
+}
+
+.cs-flow-panel,
+.cs-page-notice-zone > .cs-panel,
+.cs-notice-card,
+.cs-block-progress-header {
+  --cs-panel-surface: var(--cs-surface-flow);
+  --cs-panel-border: var(--cs-border-default);
+  --cs-panel-shadow: var(--cs-shadow-surface-1);
+}
+
+.cs-panel,
+.cs-primary-panel,
+.cs-hero-panel,
+.cs-flow-panel,
+.cs-summary-panel,
+.cs-home-hero,
+.cs-runtime-summary-card,
+.cs-notice-card,
+.cs-block-progress-header {
+  background: var(--cs-panel-surface);
+  color: var(--cs-panel-text);
+  border-color: var(--cs-panel-border);
+  box-shadow: var(--cs-panel-shadow);
+}
+
+.cs-theme,
+.cs-text-primary {
+  color: var(--cs-text-primary);
+}
+
+.cs-text-secondary,
+.cs-page-copy,
+.cs-option-copy,
+.cs-summary-line,
+.cs-contact-text,
+.cs-summary-label {
+  color: var(--cs-text-secondary);
+}
+
+.cs-text-muted,
+.cs-footer-note,
+.cs-public-footer .cs-nav-meta,
+.cs-public-footer .cs-nav-copy {
+  color: var(--cs-text-muted);
+}
+
+.cs-primary-button {
+  color: var(--cs-action-primary-text);
+  background: linear-gradient(135deg, var(--cs-action-primary-start) 0%, var(--cs-action-primary-end) 100%);
+  border-color: transparent;
+  box-shadow: var(--cs-shadow-surface-2);
+}
+
+.cs-secondary-button,
+.cs-nav-button,
+.cs-slot-button,
+.cs-theme-toggle,
+.cs-theme-toggle__option {
+  background: var(--cs-action-secondary-bg);
+  color: var(--cs-action-secondary-text);
+  border-color: var(--cs-action-secondary-border);
+}
+
+.cs-theme-toggle__option.is-active,
+.cs-theme-toggle__option[aria-pressed="true"] {
+  background: var(--cs-surface-2);
+  color: var(--cs-text-primary);
+  border-color: var(--cs-border-default);
+  box-shadow: var(--cs-shadow-surface-1);
+}
+
+[data-theme="dark"] {
+  --cs-summary-background: linear-gradient(180deg, #202936 0%, #1a2330 100%);
+  --cs-summary-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 18px 38px rgba(0, 0, 0, 0.42);
+  --cs-control-border: rgba(237, 243, 251, 0.14);
+  --cs-control-border-focus: #72a6dc;
+  --cs-control-background: linear-gradient(180deg, #161e28 0%, #121922 100%);
+  --cs-control-shadow-focus: 0 0 0 3px rgba(114, 166, 220, 0.22), 0 0 0 6px rgba(114, 166, 220, 0.08);
+  --cs-badge-background: rgba(73, 101, 134, 0.28);
+  --cs-badge-color: #d8e6f4;
+  --cs-success-bg: rgba(46, 125, 90, 0.24);
+  --cs-success-text: #9fdbc0;
+  --cs-warning-bg: rgba(156, 112, 42, 0.24);
+  --cs-warning-text: #e8c98d;
+  --cs-danger-bg: rgba(151, 68, 78, 0.24);
+  --cs-danger-text: #f0b7c0;
+  --cs-info-bg: rgba(67, 108, 160, 0.24);
+  --cs-info-text: #b7d2f1;
+}
+
+[data-theme="dark"] .cs-lookup-shell .cs-summary-panel,
+[data-theme="dark"] .cs-runtime-lookup-status,
+[data-theme="dark"] .cs-runtime-summary-card,
+[data-theme="dark"] .cs-runtime-verification-card,
+[data-theme="dark"] #reservation_status_card {
+  background: var(--cs-surface-2);
+  border-color: var(--cs-border-default);
+  box-shadow: var(--cs-shadow-surface-2);
+  color: var(--cs-text-primary);
+}
+
+[data-theme="dark"] .cs-lookup-shell .cs-panel,
+[data-theme="dark"] .cs-runtime-lookup-form,
+[data-theme="dark"] #reservation_lookup_form {
+  background: var(--cs-surface-1);
+  border-color: var(--cs-border-soft);
+  box-shadow: var(--cs-shadow-surface-1);
+}
+
+[data-theme="dark"] #reservation_status_card .cs-block-title,
+[data-theme="dark"] .cs-runtime-summary-card .cs-block-title,
+[data-theme="dark"] .cs-runtime-verification-card .cs-block-title {
+  color: var(--cs-text-primary);
+}
+
+[data-theme="dark"] #reservation_status_card .cs-summary-line,
+[data-theme="dark"] .cs-runtime-summary-row,
+[data-theme="dark"] .cs-runtime-verification-body,
+[data-theme="dark"] .cs-runtime-summary-body {
+  color: var(--cs-text-secondary);
+}
+
+[data-theme="dark"] #reservation_status_card .cs-summary-line + .cs-summary-line,
+[data-theme="dark"] .cs-runtime-summary-row + .cs-runtime-summary-row {
+  border-top: 1px solid var(--cs-border-soft);
+  padding-top: var(--cs-space-3);
+  margin-top: var(--cs-space-3);
+}
+
+[data-theme="dark"] .cs-runtime-summary-key,
+[data-theme="dark"] .cs-summary-label,
+[data-theme="dark"] .cs-runtime-section-desc,
+[data-theme="dark"] .cs-runtime-empty-state {
+  color: var(--cs-text-muted);
+}
+
+[data-theme="dark"] .cs-runtime-summary-value,
+[data-theme="dark"] #reservation_status_card .cs-summary-line strong,
+[data-theme="dark"] #reservation_status_card .cs-summary-line b {
+  color: var(--cs-text-primary);
+}
+
+[data-theme="dark"] .cs-status-pill,
+[data-theme="dark"] .cs-runtime-state-badge {
+  border: 1px solid var(--cs-border-soft);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+[data-theme="dark"] .cs-input,
+[data-theme="dark"] .cs-textarea {
+  background: var(--cs-control-background);
+  border-color: var(--cs-control-border);
+  color: var(--cs-text-primary);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+[data-theme="dark"] .cs-input::placeholder,
+[data-theme="dark"] .cs-textarea::placeholder {
+  color: color-mix(in srgb, var(--cs-text-muted) 88%, transparent);
+}
+
+[data-theme="dark"] .cs-input:hover,
+[data-theme="dark"] .cs-textarea:hover {
+  border-color: var(--cs-border-default);
+}
+
+[data-theme="dark"] {
+  --cs-button-secondary-background: linear-gradient(180deg, rgba(31, 40, 52, 0.96) 0%, rgba(27, 35, 46, 0.96) 100%);
+  --cs-button-secondary-background-hover: linear-gradient(180deg, rgba(40, 51, 65, 0.98) 0%, rgba(34, 44, 57, 0.98) 100%);
+  --cs-button-secondary-background-active: linear-gradient(180deg, rgba(52, 66, 84, 0.99) 0%, rgba(43, 56, 72, 0.99) 100%);
+  --cs-button-secondary-color: #d6e0eb;
+  --cs-button-secondary-color-hover: #edf3fb;
+  --cs-button-secondary-color-active: #f4f8fd;
+  --cs-button-secondary-border: rgba(231, 237, 245, 0.14);
+  --cs-button-secondary-border-hover: rgba(231, 237, 245, 0.18);
+  --cs-button-secondary-border-active: rgba(120, 160, 200, 0.28);
+}
+
+[data-theme="dark"] .cs-secondary-button,
+[data-theme="dark"] .cs-nav-button,
+[data-theme="dark"] .cs-slot-button,
+[data-theme="dark"] .cs-theme-toggle-button {
+  background: var(--cs-button-secondary-background);
+  color: var(--cs-button-secondary-color);
+  border-color: var(--cs-button-secondary-border);
+}
+
+[data-theme="dark"] .cs-secondary-button:hover,
+[data-theme="dark"] .cs-nav-button:hover,
+[data-theme="dark"] .cs-slot-button:hover,
+[data-theme="dark"] .cs-theme-toggle-button:hover {
+  background: var(--cs-button-secondary-background-hover);
+  color: var(--cs-button-secondary-color-hover);
+  border-color: var(--cs-button-secondary-border-hover);
+}
+
+[data-theme="dark"] .cs-nav-button-active,
+[data-theme="dark"] .cs-slot-button-selected,
+[data-theme="dark"] .cs-option-card-active,
+[data-theme="dark"] .cs-theme-nav-button.is-active,
+[data-theme="dark"] .cs-theme-nav-button[aria-pressed="true"],
+[data-theme="dark"] [data-theme-mode].is-active,
+[data-theme="dark"] [data-theme-mode][aria-pressed="true"],
+[data-theme="dark"] [data-theme-option].is-active,
+[data-theme="dark"] [data-theme-option][aria-pressed="true"] {
+  background: var(--cs-button-secondary-background-active);
+  color: var(--cs-button-secondary-color-active);
+  border-color: var(--cs-button-secondary-border-active);
+  box-shadow: var(--cs-shadow-surface-1);
 }

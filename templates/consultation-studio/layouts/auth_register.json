@@ -1,0 +1,577 @@
+{
+    "version": "1.0.0",
+    "layout_name": "auth_register",
+    "extends": "_consultation_public_base",
+    "permissions": [],
+    "meta": {
+        "title": "Consultation Register"
+    },
+    "init_actions": [
+        {
+            "handler": "setState",
+            "params": {
+                "target": "local",
+                "isRegistering": false,
+                "registerError": null,
+                "registerErrors": null,
+                "registerSuccess": false
+            }
+        }
+    ],
+    "slots": {
+        "hero": [
+            {
+                "id": "auth_register_hero",
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                    "className": "cs-panel cs-home-hero"
+                },
+                "children": [
+                    {
+                        "type": "basic",
+                        "name": "Span",
+                        "props": {
+                            "className": "cs-step-label"
+                        },
+                        "text": "Create Account"
+                    },
+                    {
+                        "type": "basic",
+                        "name": "H1",
+                        "props": {
+                            "className": "cs-page-title"
+                        },
+                        "text": "Join the Consultation Portal"
+                    }
+                ]
+            }
+        ],
+        "page_intro": [
+            {
+                "id": "auth_register_intro",
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                    "className": "cs-panel"
+                },
+                "children": [
+                    {
+                        "type": "basic",
+                        "name": "P",
+                        "props": {
+                            "className": "cs-page-copy"
+                        },
+                        "text": "Create a member account to manage consultation access, verification, and future protected services through the existing Gnuboard 7 authentication backend."
+                    }
+                ]
+            }
+        ],
+        "main_content": [
+            {
+                "id": "auth_register_content",
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                    "className": "cs-page-grid cs-lookup-shell"
+                },
+                "children": [
+                    {
+                        "id": "auth_register_form",
+                        "type": "basic",
+                        "name": "Form",
+                        "props": {
+                            "id": "auth_register_form",
+                            "className": "cs-panel cs-form-grid"
+                        },
+                        "actions": [
+                            {
+                                "type": "submit",
+                                "handler": "sequence",
+                                "actions": [
+                                    {
+                                        "handler": "setState",
+                                        "params": {
+                                            "target": "local",
+                                            "isRegistering": true,
+                                            "registerError": null,
+                                            "registerErrors": null
+                                        }
+                                    },
+                                    {
+                                        "handler": "apiCall",
+                                        "target": "/api/auth/register",
+                                        "params": {
+                                            "method": "POST",
+                                            "body": {
+                                                "name": "{{form.name}}",
+                                                "email": "{{form.email}}",
+                                                "password": "{{form.password}}",
+                                                "password_confirmation": "{{form.password_confirmation}}",
+                                                "agree_terms": "{{form.agree_terms}}",
+                                                "agree_privacy": "{{form.agree_privacy}}"
+                                            }
+                                        },
+                                        "onSuccess": [
+                                            {
+                                                "handler": "setState",
+                                                "params": {
+                                                    "target": "local",
+                                                    "isRegistering": false,
+                                                    "registerError": null,
+                                                    "registerErrors": null,
+                                                    "registerSuccess": true
+                                                }
+                                            }
+                                        ],
+                                        "onError": [
+                                            {
+                                                "handler": "setState",
+                                                "params": {
+                                                    "target": "local",
+                                                    "isRegistering": false,
+                                                    "registerError": "{{error.response?.message ?? error.message}}",
+                                                    "registerErrors": "{{error.response?.errors ?? error.errors}}"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "children": [
+                            {
+                                "type": "basic",
+                                "name": "H2",
+                                "props": {
+                                    "className": "cs-block-title"
+                                },
+                                "text": "Register"
+                            },
+                            {
+                                "type": "basic",
+                                "name": "P",
+                                "if": "{{_local.registerError}}",
+                                "props": {
+                                    "className": "cs-auth-message cs-auth-message-error",
+                                    "role": "alert",
+                                    "aria-live": "polite"
+                                },
+                                "text": "{{_local.registerError}}"
+                            },
+                            {
+                                "type": "basic",
+                                "name": "Div",
+                                "if": "{{_local.registerSuccess}}",
+                                "props": {
+                                    "className": "cs-auth-message cs-auth-message-success",
+                                    "role": "status",
+                                    "aria-live": "polite"
+                                },
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "P",
+                                        "text": "Your account has been created successfully. Continue to sign in with your new credentials."
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "Button",
+                                        "props": {
+                                            "type": "button",
+                                            "className": "cs-secondary-button"
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "click",
+                                                "handler": "navigate",
+                                                "params": {
+                                                    "path": "/login"
+                                                }
+                                            }
+                                        ],
+                                        "children": [
+                                            {
+                                                "type": "basic",
+                                                "name": "Span",
+                                                "text": "Go to Login"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "name": "Div",
+                                "if": "{{!_local.registerSuccess}}",
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "Label",
+                                        "props": {
+                                            "className": "cs-summary-label"
+                                        },
+                                        "text": "Name"
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "Input",
+                                        "props": {
+                                            "name": "name",
+                                            "type": "text",
+                                            "placeholder": "Full name",
+                                            "className": "cs-input",
+                                            "disabled": "{{_local.isRegistering}}",
+                                            "required": true
+                                        }
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "P",
+                                        "if": "{{_local.registerErrors?.name}}",
+                                        "props": {
+                                            "className": "cs-auth-field-error"
+                                        },
+                                        "text": "{{Array.isArray(_local.registerErrors?.name) ? _local.registerErrors.name[0] : _local.registerErrors?.name}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "name": "Div",
+                                "if": "{{!_local.registerSuccess}}",
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "Label",
+                                        "props": {
+                                            "className": "cs-summary-label"
+                                        },
+                                        "text": "Email"
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "Input",
+                                        "props": {
+                                            "name": "email",
+                                            "type": "email",
+                                            "placeholder": "Email address",
+                                            "className": "cs-input",
+                                            "disabled": "{{_local.isRegistering}}",
+                                            "required": true
+                                        }
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "P",
+                                        "if": "{{_local.registerErrors?.email}}",
+                                        "props": {
+                                            "className": "cs-auth-field-error"
+                                        },
+                                        "text": "{{Array.isArray(_local.registerErrors?.email) ? _local.registerErrors.email[0] : _local.registerErrors?.email}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "name": "Div",
+                                "if": "{{!_local.registerSuccess}}",
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "Label",
+                                        "props": {
+                                            "className": "cs-summary-label"
+                                        },
+                                        "text": "Password"
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "Input",
+                                        "props": {
+                                            "name": "password",
+                                            "type": "password",
+                                            "placeholder": "Create a password",
+                                            "className": "cs-input",
+                                            "disabled": "{{_local.isRegistering}}",
+                                            "required": true
+                                        }
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "P",
+                                        "if": "{{_local.registerErrors?.password}}",
+                                        "props": {
+                                            "className": "cs-auth-field-error"
+                                        },
+                                        "text": "{{Array.isArray(_local.registerErrors?.password) ? _local.registerErrors.password[0] : _local.registerErrors?.password}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "name": "Div",
+                                "if": "{{!_local.registerSuccess}}",
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "Label",
+                                        "props": {
+                                            "className": "cs-summary-label"
+                                        },
+                                        "text": "Confirm Password"
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "Input",
+                                        "props": {
+                                            "name": "password_confirmation",
+                                            "type": "password",
+                                            "placeholder": "Confirm your password",
+                                            "className": "cs-input",
+                                            "disabled": "{{_local.isRegistering}}",
+                                            "required": true
+                                        }
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "P",
+                                        "if": "{{_local.registerErrors?.password_confirmation}}",
+                                        "props": {
+                                            "className": "cs-auth-field-error"
+                                        },
+                                        "text": "{{Array.isArray(_local.registerErrors?.password_confirmation) ? _local.registerErrors.password_confirmation[0] : _local.registerErrors?.password_confirmation}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "name": "Div",
+                                "if": "{{!_local.registerSuccess}}",
+                                "props": {
+                                    "className": "cs-auth-consent-group"
+                                },
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "Div",
+                                        "props": {
+                                            "className": "cs-auth-consent-row"
+                                        },
+                                        "children": [
+                                            {
+                                                "type": "basic",
+                                                "name": "Input",
+                                                "props": {
+                                                    "name": "agree_terms",
+                                                    "type": "checkbox",
+                                                    "value": "1",
+                                                    "className": "cs-auth-checkbox",
+                                                    "disabled": "{{_local.isRegistering}}",
+                                                    "required": true
+                                                }
+                                            },
+                                            {
+                                                "type": "basic",
+                                                "name": "P",
+                                                "props": {
+                                                    "className": "cs-auth-consent-copy"
+                                                },
+                                                "text": "I agree to the terms required for account registration."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "P",
+                                        "if": "{{_local.registerErrors?.agree_terms}}",
+                                        "props": {
+                                            "className": "cs-auth-field-error"
+                                        },
+                                        "text": "{{Array.isArray(_local.registerErrors?.agree_terms) ? _local.registerErrors.agree_terms[0] : _local.registerErrors?.agree_terms}}"
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "Div",
+                                        "props": {
+                                            "className": "cs-auth-consent-row"
+                                        },
+                                        "children": [
+                                            {
+                                                "type": "basic",
+                                                "name": "Input",
+                                                "props": {
+                                                    "name": "agree_privacy",
+                                                    "type": "checkbox",
+                                                    "value": "1",
+                                                    "className": "cs-auth-checkbox",
+                                                    "disabled": "{{_local.isRegistering}}",
+                                                    "required": true
+                                                }
+                                            },
+                                            {
+                                                "type": "basic",
+                                                "name": "P",
+                                                "props": {
+                                                    "className": "cs-auth-consent-copy"
+                                                },
+                                                "text": "I agree to the privacy consent required for account registration."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "P",
+                                        "if": "{{_local.registerErrors?.agree_privacy}}",
+                                        "props": {
+                                            "className": "cs-auth-field-error"
+                                        },
+                                        "text": "{{Array.isArray(_local.registerErrors?.agree_privacy) ? _local.registerErrors.agree_privacy[0] : _local.registerErrors?.agree_privacy}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "name": "Button",
+                                "if": "{{!_local.registerSuccess}}",
+                                "props": {
+                                    "type": "submit",
+                                    "className": "cs-primary-button",
+                                    "disabled": "{{_local.isRegistering}}"
+                                },
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "Span",
+                                        "text": "{{_local.isRegistering ? \"Creating Account...\" : \"Create Account\"}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "name": "Div",
+                                "props": {
+                                    "className": "cs-auth-inline-links"
+                                },
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "Button",
+                                        "props": {
+                                            "type": "button",
+                                            "className": "cs-auth-link"
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "click",
+                                                "handler": "navigate",
+                                                "params": {
+                                                    "path": "/login"
+                                                }
+                                            }
+                                        ],
+                                        "children": [
+                                            {
+                                                "type": "basic",
+                                                "name": "Span",
+                                                "text": "Already have an account? Login"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "Button",
+                                        "props": {
+                                            "type": "button",
+                                            "className": "cs-auth-link"
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "click",
+                                                "handler": "navigate",
+                                                "params": {
+                                                    "path": "/forgot-password"
+                                                }
+                                            }
+                                        ],
+                                        "children": [
+                                            {
+                                                "type": "basic",
+                                                "name": "Span",
+                                                "text": "Forgot Password"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "side_content": [
+            {
+                "id": "auth_register_summary",
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                    "className": "cs-panel cs-summary-panel"
+                },
+                "children": [
+                    {
+                        "type": "basic",
+                        "name": "H2",
+                        "props": {
+                            "className": "cs-block-title"
+                        },
+                        "text": "Registration Flow"
+                    },
+                    {
+                        "type": "basic",
+                        "name": "P",
+                        "props": {
+                            "className": "cs-summary-line"
+                        },
+                        "text": "1. The form posts through the template action system to the existing /api/auth/register endpoint."
+                    },
+                    {
+                        "type": "basic",
+                        "name": "P",
+                        "props": {
+                            "className": "cs-summary-line"
+                        },
+                        "text": "2. Validation errors return to the same page and render beside the matching field."
+                    },
+                    {
+                        "type": "basic",
+                        "name": "P",
+                        "props": {
+                            "className": "cs-summary-line"
+                        },
+                        "text": "3. After successful registration, the page confirms completion and sends the user to sign in through the existing login flow."
+                    }
+                ]
+            }
+        ],
+        "footer_notice": [
+            {
+                "id": "auth_register_notice",
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                    "className": "cs-panel"
+                },
+                "children": [
+                    {
+                        "type": "basic",
+                        "name": "P",
+                        "props": {
+                            "className": "cs-page-copy"
+                        },
+                        "text": "Registration stays inside the consultation template shell and reuses the project's existing backend authentication contract."
+                    }
+                ]
+            }
+        ]
+    }
+}

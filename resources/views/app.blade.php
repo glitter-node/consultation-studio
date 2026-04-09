@@ -21,6 +21,7 @@
 
         <!-- 템플릿 컴포넌트 스타일 -->
         @if(!empty($activeUserTemplate))
+        <script src='{{ isset($templateJsAssets[0]) ? str_replace("/assets/js/index.js", "/assets/js/theme-init.js", $templateJsAssets[0]) : asset("templates/" . $activeUserTemplate . "/assets/js/theme-init.js") }}'></script>
         @foreach(($templateCssAssets ?? []) as $templateCssAsset)
         <link rel="stylesheet" href="{{ $templateCssAsset }}">
         @endforeach

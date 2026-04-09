@@ -1,175 +1,562 @@
 {
-  "version": "1.0.0",
-  "layout_name": "_consultation_public_base",
-  "meta": {
-    "title": "Consultation Studio",
-    "description": "Consultation reservation public base layout",
-    "is_base": true
-  },
-  "init_actions": [
-    {
-      "handler": "setState",
-      "params": {
-        "target": "global",
-        "consultationStudioBrand": {
-          "logoText": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.logoText ? _global.consultationStudioBrand.logoText : 'Consultation Studio'}}",
-          "brandColor": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.brandColor ? _global.consultationStudioBrand.brandColor : '#0f766e'}}",
-          "contactText": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.contactText ? _global.consultationStudioBrand.contactText : 'Contact us at support@example.com'}}",
-          "branchNotice": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.branchNotice ? _global.consultationStudioBrand.branchNotice : 'Branch availability may vary by operating calendar.'}}",
-          "completionNotice": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.completionNotice ? _global.consultationStudioBrand.completionNotice : 'A confirmation email will be sent after verification is completed.'}}"
-        }
-      }
-    }
-  ],
-  "components": [
-    {
-      "id": "consultation_public_root",
-      "type": "basic",
-      "name": "Div",
-      "props": {
-        "className": "cs-theme cs-public min-h-screen"
-      },
-      "children": [
+    "version": "1.0.0",
+    "layout_name": "_consultation_public_base",
+    "meta": {
+        "title": "Consultation Studio",
+        "description": "Consultation reservation public base layout",
+        "is_base": true
+    },
+    "init_actions": [
         {
-          "id": "consultation_public_shell",
-          "type": "basic",
-          "name": "Div",
-          "props": {
-            "className": "cs-public-shell"
-          },
-          "children": [
-            {
-              "id": "consultation_public_header",
-              "type": "basic",
-              "name": "Div",
-              "props": {
-                "className": "cs-public-header"
-              },
-              "children": [
-                {
-                  "type": "basic",
-                  "name": "Div",
-                  "props": {
-                    "className": "cs-brand-lockup"
-                  },
-                  "children": [
-                    {
-                      "type": "basic",
-                      "name": "Span",
-                      "props": {
-                        "className": "cs-brand-badge"
-                      },
-                      "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.logoText ? _global.consultationStudioBrand.logoText : 'Consultation Studio'}}"
-                    },
-                    {
-                      "type": "basic",
-                      "name": "Span",
-                      "props": {
-                        "className": "cs-contact-text"
-                      },
-                      "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.contactText ? _global.consultationStudioBrand.contactText : ''}}"
-                    }
-                  ]
+            "handler": "setState",
+            "params": {
+                "target": "global",
+                "consultationStudioBrand": {
+                    "logoText": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.logoText ? _global.consultationStudioBrand.logoText : 'Consultation Studio'}}",
+                    "brandColor": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.brandColor ? _global.consultationStudioBrand.brandColor : '#0f766e'}}",
+                    "contactText": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.contactText ? _global.consultationStudioBrand.contactText : 'Contact us at support@example.com'}}",
+                    "branchNotice": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.branchNotice ? _global.consultationStudioBrand.branchNotice : 'Branch availability may vary by operating calendar.'}}",
+                    "completionNotice": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.completionNotice ? _global.consultationStudioBrand.completionNotice : 'A confirmation email will be sent after verification is completed.'}}"
                 },
-                {
-                  "type": "basic",
-                  "name": "Div",
-                  "props": {
-                    "className": "cs-public-nav"
-                  },
-                  "children": [
-                    {
-                      "type": "basic",
-                      "name": "Button",
-                      "props": {
-                        "type": "button",
-                        "className": "cs-nav-button"
-                      },
-                      "actions": [
-                        {
-                          "type": "click",
-                          "handler": "navigate",
-                          "params": {
-                            "path": "/consultation"
-                          }
-                        }
-                      ],
-                      "children": [
-                        {
-                          "type": "basic",
-                          "name": "Span",
-                          "text": "Overview"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "basic",
-                      "name": "Button",
-                      "props": {
-                        "type": "button",
-                        "className": "cs-nav-button cs-nav-button-primary"
-                      },
-                      "actions": [
-                        {
-                          "type": "click",
-                          "handler": "navigate",
-                          "params": {
-                            "path": "/consultation/reserve"
-                          }
-                        }
-                      ],
-                      "children": [
-                        {
-                          "type": "basic",
-                          "name": "Span",
-                          "text": "Reserve"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "consultation_public_content",
-              "type": "basic",
-              "name": "Div",
-              "props": {
-                "className": "cs-page-frame"
-              },
-              "children": [
-                {
-                  "type": "basic",
-                  "name": "Div",
-                  "slot": "content",
-                  "props": {
-                    "className": "cs-page-grid"
-                  },
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "consultation_public_footer",
-              "type": "basic",
-              "name": "Div",
-              "props": {
-                "className": "cs-public-footer"
-              },
-              "children": [
-                {
-                  "type": "basic",
-                  "name": "Span",
-                  "props": {
-                    "className": "cs-footer-note"
-                  },
-                  "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.branchNotice ? _global.consultationStudioBrand.branchNotice : ''}}"
-                }
-              ]
+                "isAccountMenuOpen": false
             }
-          ]
         }
-      ]
-    }
-  ]
+    ],
+    "components": [
+        {
+            "id": "consultation_public_root",
+            "type": "basic",
+            "name": "Div",
+            "props": {
+                "className": "cs-theme cs-public min-h-screen"
+            },
+            "children": [
+                {
+                    "id": "consultation_public_shell",
+                    "type": "basic",
+                    "name": "Div",
+                    "props": {
+                        "className": "cs-public-shell cs-public-shell-layout"
+                    },
+                    "children": [
+                        {
+                            "id": "consultation_public_header",
+                            "type": "basic",
+                            "name": "Div",
+                            "props": {
+                                "className": "cs-public-header cs-surface-frame"
+                            },
+                            "children": [
+                                {
+                                    "type": "basic",
+                                    "name": "Div",
+                                    "props": {
+                                        "className": "cs-brand-lockup cs-brand-lockup-stack"
+                                    },
+                                    "children": [
+                                        {
+                                            "type": "basic",
+                                            "name": "Span",
+                                            "props": {
+                                                "className": "cs-brand-badge"
+                                            },
+                                            "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.logoText ? _global.consultationStudioBrand.logoText : 'Consultation Studio'}}"
+                                        },
+                                        {
+                                            "type": "basic",
+                                            "name": "Span",
+                                            "props": {
+                                                "className": "cs-contact-text"
+                                            },
+                                            "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.contactText ? _global.consultationStudioBrand.contactText : ''}}"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "basic",
+                                    "name": "Div",
+                                    "props": {
+                                        "className": "cs-header-actions"
+                                    },
+                                    "children": [
+                                        {
+                                            "type": "basic",
+                                            "name": "Div",
+                                            "props": {
+                                                "className": "cs-header-nav-zone"
+                                            },
+                                            "children": [
+                                                {
+                                                    "type": "basic",
+                                                    "name": "Button",
+                                                    "props": {
+                                                        "type": "button",
+                                                        "className": "cs-nav-button"
+                                                    },
+                                                    "actions": [
+                                                        {
+                                                            "type": "click",
+                                                            "handler": "navigate",
+                                                            "params": {
+                                                                "path": "/consultation"
+                                                            }
+                                                        }
+                                                    ],
+                                                    "children": [
+                                                        {
+                                                            "type": "basic",
+                                                            "name": "Span",
+                                                            "text": "Overview"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "basic",
+                                                    "name": "Button",
+                                                    "props": {
+                                                        "type": "button",
+                                                        "className": "cs-nav-button cs-nav-button-primary"
+                                                    },
+                                                    "actions": [
+                                                        {
+                                                            "type": "click",
+                                                            "handler": "navigate",
+                                                            "params": {
+                                                                "path": "/consultation/reserve"
+                                                            }
+                                                        }
+                                                    ],
+                                                    "children": [
+                                                        {
+                                                            "type": "basic",
+                                                            "name": "Span",
+                                                            "text": "Reserve"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "basic",
+                                                    "name": "Button",
+                                                    "props": {
+                                                        "type": "button",
+                                                        "className": "cs-nav-button"
+                                                    },
+                                                    "actions": [
+                                                        {
+                                                            "type": "click",
+                                                            "handler": "navigate",
+                                                            "params": {
+                                                                "path": "/consultation/lookup"
+                                                            }
+                                                        }
+                                                    ],
+                                                    "children": [
+                                                        {
+                                                            "type": "basic",
+                                                            "name": "Span",
+                                                            "text": "Lookup"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "basic",
+                                            "name": "Div",
+                                            "props": {
+                                                "className": "cs-header-auth-zone"
+                                            },
+                                            "if": "{{!_global.currentUser}}",
+                                            "children": [
+                                                {
+                                                    "type": "basic",
+                                                    "name": "Button",
+                                                    "props": {
+                                                        "type": "button",
+                                                        "className": "cs-secondary-button cs-auth-header-button"
+                                                    },
+                                                    "actions": [
+                                                        {
+                                                            "type": "click",
+                                                            "handler": "navigate",
+                                                            "params": {
+                                                                "path": "/login"
+                                                            }
+                                                        }
+                                                    ],
+                                                    "children": [
+                                                        {
+                                                            "type": "basic",
+                                                            "name": "Span",
+                                                            "text": "Login"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "basic",
+                                                    "name": "Button",
+                                                    "props": {
+                                                        "type": "button",
+                                                        "className": "cs-primary-button cs-auth-header-button"
+                                                    },
+                                                    "actions": [
+                                                        {
+                                                            "type": "click",
+                                                            "handler": "navigate",
+                                                            "params": {
+                                                                "path": "/register"
+                                                            }
+                                                        }
+                                                    ],
+                                                    "children": [
+                                                        {
+                                                            "type": "basic",
+                                                            "name": "Span",
+                                                            "text": "Register"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "basic",
+                                            "name": "Div",
+                                            "props": {
+                                                "className": "cs-header-auth-zone"
+                                            },
+                                            "if": "{{_global.currentUser}}",
+                                            "children": [
+                                                {
+                                                    "type": "basic",
+                                                    "name": "Div",
+                                                    "props": {
+                                                        "className": "cs-account-menu"
+                                                    },
+                                                    "children": [
+                                                        {
+                                                            "type": "basic",
+                                                            "name": "Button",
+                                                            "props": {
+                                                                "type": "button",
+                                                                "className": "cs-account-trigger",
+                                                                "aria-haspopup": "menu",
+                                                                "aria-expanded": "{{_global.isAccountMenuOpen ? 'true' : 'false'}}",
+                                                                "title": "{{_global.currentUser && _global.currentUser.name ? _global.currentUser.name : (_global.currentUser && _global.currentUser.nickname ? _global.currentUser.nickname : (_global.currentUser && _global.currentUser.email ? _global.currentUser.email : 'Account'))}}"
+                                                            },
+                                                            "actions": [
+                                                                {
+                                                                    "type": "click",
+                                                                    "handler": "setState",
+                                                                    "params": {
+                                                                        "target": "global",
+                                                                        "isAccountMenuOpen": "{{!_global.isAccountMenuOpen}}"
+                                                                    }
+                                                                }
+                                                            ],
+                                                            "children": [
+                                                                {
+                                                                    "type": "basic",
+                                                                    "name": "Span",
+                                                                    "props": {
+                                                                        "className": "cs-account-trigger__badge"
+                                                                    },
+                                                                    "text": "{{_global.currentUser && _global.currentUser.name ? _global.currentUser.name.charAt(0).toUpperCase() : (_global.currentUser && _global.currentUser.nickname ? _global.currentUser.nickname.charAt(0).toUpperCase() : (_global.currentUser && _global.currentUser.email ? _global.currentUser.email.charAt(0).toUpperCase() : 'U'))}}"
+                                                                },
+                                                                {
+                                                                    "type": "basic",
+                                                                    "name": "Span",
+                                                                    "props": {
+                                                                        "className": "cs-account-trigger__name"
+                                                                    },
+                                                                    "text": "{{_global.currentUser && _global.currentUser.name ? _global.currentUser.name : (_global.currentUser && _global.currentUser.nickname ? _global.currentUser.nickname : (_global.currentUser && _global.currentUser.email ? _global.currentUser.email : 'Account'))}}"
+                                                                },
+                                                                {
+                                                                    "type": "basic",
+                                                                    "name": "Span",
+                                                                    "props": {
+                                                                        "className": "cs-account-trigger__chevron",
+                                                                        "aria-hidden": "true"
+                                                                    },
+                                                                    "text": "{{_global.isAccountMenuOpen ? '▴' : '▾'}}"
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "basic",
+                                                            "name": "Div",
+                                                            "if": "{{_global.isAccountMenuOpen}}",
+                                                            "props": {
+                                                                "className": "cs-account-dropdown",
+                                                                "role": "menu"
+                                                            },
+                                                            "children": [
+                                                                {
+                                                                    "type": "basic",
+                                                                    "name": "Div",
+                                                                    "props": {
+                                                                        "className": "cs-account-dropdown__identity"
+                                                                    },
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "basic",
+                                                                            "name": "Span",
+                                                                            "props": {
+                                                                                "className": "cs-account-dropdown__badge"
+                                                                            },
+                                                                            "text": "{{_global.currentUser && _global.currentUser.name ? _global.currentUser.name.charAt(0).toUpperCase() : (_global.currentUser && _global.currentUser.nickname ? _global.currentUser.nickname.charAt(0).toUpperCase() : (_global.currentUser && _global.currentUser.email ? _global.currentUser.email.charAt(0).toUpperCase() : 'U'))}}"
+                                                                        },
+                                                                        {
+                                                                            "type": "basic",
+                                                                            "name": "Div",
+                                                                            "props": {
+                                                                                "className": "cs-account-dropdown__identity-copy"
+                                                                            },
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "basic",
+                                                                                    "name": "Span",
+                                                                                    "props": {
+                                                                                        "className": "cs-account-dropdown__name"
+                                                                                    },
+                                                                                    "text": "{{_global.currentUser && _global.currentUser.name ? _global.currentUser.name : (_global.currentUser && _global.currentUser.nickname ? _global.currentUser.nickname : (_global.currentUser && _global.currentUser.email ? _global.currentUser.email : 'Account'))}}"
+                                                                                },
+                                                                                {
+                                                                                    "type": "basic",
+                                                                                    "name": "Span",
+                                                                                    "props": {
+                                                                                        "className": "cs-account-dropdown__meta"
+                                                                                    },
+                                                                                    "text": "{{_global.currentUser && _global.currentUser.email ? _global.currentUser.email : 'Member'}}"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "basic",
+                                                                    "name": "Div",
+                                                                    "props": {
+                                                                        "className": "cs-account-dropdown__actions"
+                                                                    },
+                                                                    "children": [
+                                                                        {
+                                                                            "type": "basic",
+                                                                            "name": "Button",
+                                                                            "props": {
+                                                                                "type": "button",
+                                                                                "className": "cs-account-dropdown__item"
+                                                                            },
+                                                                            "actions": [
+                                                                                {
+                                                                                    "type": "click",
+                                                                                    "handler": "sequence",
+                                                                                    "actions": [
+                                                                                        {
+                                                                                            "handler": "setState",
+                                                                                            "params": {
+                                                                                                "target": "global",
+                                                                                                "isAccountMenuOpen": false
+                                                                                            }
+                                                                                        },
+                                                                                        {
+                                                                                            "handler": "navigate",
+                                                                                            "params": {
+                                                                                                "path": "/consultation/lookup"
+                                                                                            }
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ],
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "basic",
+                                                                                    "name": "Span",
+                                                                                    "text": "Reservation Lookup"
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": "basic",
+                                                                            "name": "Button",
+                                                                            "props": {
+                                                                                "type": "button",
+                                                                                "className": "cs-account-dropdown__item cs-account-dropdown__item-logout"
+                                                                            },
+                                                                            "actions": [
+                                                                                {
+                                                                                    "type": "click",
+                                                                                    "handler": "logout",
+                                                                                    "onSuccess": [
+                                                                                        {
+                                                                                            "handler": "setState",
+                                                                                            "params": {
+                                                                                                "target": "global",
+                                                                                                "currentUser": null,
+                                                                                                "isAccountMenuOpen": false
+                                                                                            }
+                                                                                        },
+                                                                                        {
+                                                                                            "handler": "navigate",
+                                                                                            "params": {
+                                                                                                "path": "/"
+                                                                                            }
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ],
+                                                                            "children": [
+                                                                                {
+                                                                                    "type": "basic",
+                                                                                    "name": "Span",
+                                                                                    "text": "Logout"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "basic",
+                                            "name": "Button",
+                                            "props": {
+                                                "type": "button",
+                                                "className": "cs-nav-button cs-theme-toggle-button",
+                                                "data-theme-toggle-button": "true",
+                                                "aria-label": "Toggle theme mode",
+                                                "title": "Toggle theme mode"
+                                            },
+                                            "children": [
+                                                {
+                                                    "type": "basic",
+                                                    "name": "Span",
+                                                    "props": {
+                                                        "className": "cs-theme-toggle-button__label"
+                                                    },
+                                                    "text": "Light"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "consultation_public_frame",
+                            "type": "basic",
+                            "name": "Div",
+                            "props": {
+                                "className": "cs-page-frame cs-page-frame-balanced"
+                            },
+                            "children": [
+                                {
+                                    "id": "consultation_public_hero_region",
+                                    "type": "basic",
+                                    "name": "Div",
+                                    "slot": "hero",
+                                    "props": {
+                                        "className": "cs-page-hero cs-page-hero-zone"
+                                    },
+                                    "children": []
+                                },
+                                {
+                                    "id": "consultation_public_intro_region",
+                                    "type": "basic",
+                                    "name": "Div",
+                                    "slot": "page_intro",
+                                    "props": {
+                                        "className": "cs-page-intro cs-page-intro-zone"
+                                    },
+                                    "children": []
+                                },
+                                {
+                                    "id": "consultation_public_body_region",
+                                    "type": "basic",
+                                    "name": "Div",
+                                    "props": {
+                                        "className": "cs-page-body cs-page-body-grid"
+                                    },
+                                    "children": [
+                                        {
+                                            "id": "consultation_public_main_region",
+                                            "type": "basic",
+                                            "name": "Div",
+                                            "slot": "main_content",
+                                            "props": {
+                                                "className": "cs-page-main cs-page-main-zone"
+                                            },
+                                            "children": []
+                                        },
+                                        {
+                                            "id": "consultation_public_side_region",
+                                            "type": "basic",
+                                            "name": "Div",
+                                            "slot": "side_content",
+                                            "props": {
+                                                "className": "cs-page-aside cs-page-aside-zone"
+                                            },
+                                            "children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "consultation_public_notice_region",
+                                    "type": "basic",
+                                    "name": "Div",
+                                    "slot": "footer_notice",
+                                    "props": {
+                                        "className": "cs-page-notice cs-page-notice-zone"
+                                    },
+                                    "children": []
+                                }
+                            ]
+                        },
+                        {
+                            "id": "consultation_public_footer",
+                            "type": "basic",
+                            "name": "Div",
+                            "props": {
+                                "className": "cs-public-footer cs-surface-footer"
+                            },
+                            "children": [
+                                {
+                                    "type": "basic",
+                                    "name": "Span",
+                                    "props": {
+                                        "className": "cs-footer-note"
+                                    },
+                                    "text": "{{_global.consultationStudioBrand && _global.consultationStudioBrand.branchNotice ? _global.consultationStudioBrand.branchNotice : ''}}"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "data_sources": [
+        {
+            "id": "current_user",
+            "type": "api",
+            "endpoint": "/api/auth/user",
+            "method": "GET",
+            "auto_fetch": true,
+            "auth_required": true,
+            "loading_strategy": "progressive",
+            "initGlobal": "currentUser",
+            "fallback": {
+                "data": null
+            },
+            "errorHandling": {
+                "401": {
+                    "comment": "Guest /api/auth/user 401 should not break the public consultation shell.",
+                    "handler": "suppress"
+                }
+            }
+        }
+    ]
 }

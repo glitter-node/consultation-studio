@@ -271,6 +271,28 @@ export class ErrorPageHandler {
      * @param fetchedData fetch된 데이터 (키: 데이터소스 ID)
      * @param localInit _local 상태에 매핑할 데이터 (출력용)
      */
+    private normalizeInitOptionData(data: unknown): unknown {
+        if (data !== null && typeof data === 'object' && Object.prototype.hasOwnProperty.call(data, 'data')) {
+            return (data as { data?: unknown }).data;
+        }
+
+        return data;
+    }
+
+    private normalizeCurrentUser(value: unknown): Record<string, unknown> | null {
+        if (!value || typeof value !== 'object' || Array.isArray(value)) {
+            return null;
+        }
+
+        const candidate = value as Record<string, unknown>;
+
+        return (
+            (typeof candidate.uuid === 'string' && candidate.uuid.trim() !== '') ||
+            (typeof candidate.email === 'string' && candidate.email.trim() !== '') ||
+            (candidate.id !== undefined && candidate.id !== null && candidate.id !== '')
+        ) ? candidate : null;
+    }
+
     private processInitOptions(
         dataSources: DataSource[],
         fetchedData: Record<string, unknown>,
@@ -278,10 +300,10 @@ export class ErrorPageHandler {
     ): void {
         for (const source of dataSources) {
             const rawData = fetchedData[source.id] as any;
-            if (!rawData) continue;
+            if (rawData === undefined) continue;
 
-            // API 응답의 data 필드 추출 (success/data 래핑 해제)
-            const actualData = rawData?.data ?? rawData;
+            // API envelope({ success, data })가 있으면 data 필드만 사용하고, guest null도 그대로 유지
+            const actualData = this.normalizeInitOptionData(rawData);
 
             // initLocal 처리
             if (source.initLocal) {
@@ -303,11 +325,11 @@ export class ErrorPageHandler {
 
                 for (const item of items) {
                     if (typeof item === 'string') {
-                        this.globalState[item] = actualData;
+                        this.globalState[item] = item === 'currentUser' ? this.normalizeCurrentUser(actualData) : actualData;
                         logger.log(`initGlobal: ${source.id}.data -> _global.${item}`);
                     } else if (typeof item === 'object' && item !== null && 'key' in item) {
                         const { key, path } = item as { key: string; path?: string };
-                        this.globalState[key] = path ? this.getValueByPath(actualData, path) : actualData;
+                        this.globalState[key] = key === 'currentUser' ? this.normalizeCurrentUser(path ? this.getValueByPath(actualData, path) : actualData) : (path ? this.getValueByPath(actualData, path) : actualData);
                         logger.log(`initGlobal: ${source.id}.data${path ? '.' + path : ''} -> _global.${key}`);
                     }
                 }
